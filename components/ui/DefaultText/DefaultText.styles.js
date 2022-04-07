@@ -3,7 +3,7 @@ import {Colors} from '../../../constants';
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.primary,
+    color: Colors.black,
     fontFamily: 'Manrope-Regular',
   },
 });
