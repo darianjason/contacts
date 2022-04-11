@@ -11,7 +11,7 @@ const IconButton = ({name, size, color, onPress}) => (
     style={({pressed}) => [styles.button, pressed && styles.pressed]}>
     <Icon
       name={name}
-      size={size ? size : 24}
+      size={size ? size : 21}
       color={color ? color : Colors.accent}
     />
   </Pressable>
