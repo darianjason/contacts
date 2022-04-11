@@ -10,7 +10,7 @@ const setNavOptions = navigation => {
     headerRight: () => (
       <IconButton
         name="add"
-        onPress={() => navigation.navigate('EditContact')}
+        onPress={() => navigation.navigate('ManageContact')}
       />
     ),
   });

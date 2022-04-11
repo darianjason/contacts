@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Colors} from '../constants';
-import {ContactDetails, Contacts, EditContact} from '../screens';
+import {ContactDetails, Contacts, ManageContact} from '../screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +27,13 @@ const ContactsNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={defaultHeaderOptions}>
       <Stack.Screen name="Contacts" component={Contacts} />
-      <Stack.Screen name="EditContact" component={EditContact} />
+      <Stack.Screen
+        name="ManageContact"
+        component={ManageContact}
+        options={{
+          presentation: 'modal',
+        }}
+      />
       <Stack.Screen name="ContactDetails" component={ContactDetails} />
     </Stack.Navigator>
   </NavigationContainer>

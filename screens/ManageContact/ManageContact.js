@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const EditContact = () => {
+const ManageContact = () => {
   return (
     <View>
-      <Text>Edit Contact Screen</Text>
+      <Text>Manage Contact Screen</Text>
     </View>
   );
 };
 
-export default EditContact;
+export default ManageContact;
