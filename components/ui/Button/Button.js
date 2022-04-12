@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Pressable} from 'react-native';
 
 import {Colors} from '../../../constants';
-import styles from './IconButton.styles';
+import styles from './Button.styles';
 import DefaultText from '../DefaultText/DefaultText';
 
 const renderIcon = (name, color, size) => (
@@ -25,14 +25,7 @@ const renderText = (children, color, name) => (
   </DefaultText>
 );
 
-const IconButton = ({
-  name,
-  size,
-  color,
-  backgroundColor,
-  onPress,
-  children,
-}) => (
+const Button = ({name, size, color, backgroundColor, onPress, children}) => (
   <Pressable
     onPress={onPress}
     style={({pressed}) => [
@@ -46,4 +39,4 @@ const IconButton = ({
   </Pressable>
 );
 
-export default IconButton;
+export default Button;

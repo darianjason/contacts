@@ -2,14 +2,14 @@ import React, {useLayoutEffect} from 'react';
 import {ScrollView, View, Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
 
-import {DefaultText, IconButton, ProfilePicture} from '../../components/ui';
+import {DefaultText, Button, ProfilePicture} from '../../components/ui';
 import styles from './ContactDetails.styles';
 
 const setNavOptions = (navigation, id, fullName) => {
   navigation.setOptions({
     headerTitle: fullName,
     headerRight: () => (
-      <IconButton
+      <Button
         name="pencil"
         onPress={() => navigation.navigate('ManageContact', {id})}
       />
