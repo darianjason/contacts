@@ -8,7 +8,10 @@ import styles from './Contacts.styles';
 const setNavOptions = navigation => {
   navigation.setOptions({
     headerRight: () => (
-      <Button name="add" onPress={() => navigation.navigate('ManageContact')} />
+      <Button
+        name="plus-circle"
+        onPress={() => navigation.navigate('ManageContact')}
+      />
     ),
   });
 };

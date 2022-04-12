@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Pressable} from 'react-native';
 
 import {Colors} from '../../../constants';
@@ -10,7 +10,7 @@ const renderIcon = (name, color, size) => (
   <Icon
     name={name}
     color={color ? color : Colors.accent}
-    size={size ? size : 21}
+    size={size ? size : 18}
   />
 );
 
@@ -19,7 +19,7 @@ const renderText = (children, color, name) => (
     style={{
       ...styles.text,
       color: color ? color : Colors.accent,
-      marginLeft: name && 6,
+      marginLeft: name && 8,
     }}>
     {children}
   </DefaultText>

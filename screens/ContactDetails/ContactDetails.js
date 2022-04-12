@@ -10,7 +10,7 @@ const setNavOptions = (navigation, id, fullName) => {
     headerTitle: fullName,
     headerRight: () => (
       <Button
-        name="pencil"
+        name="edit"
         onPress={() => navigation.navigate('ManageContact', {id})}
       />
     ),
