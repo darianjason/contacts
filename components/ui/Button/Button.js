@@ -25,7 +25,15 @@ const renderText = (children, color, name) => (
   </DefaultText>
 );
 
-const Button = ({name, size, color, backgroundColor, onPress, children}) => (
+const Button = ({
+  name,
+  size,
+  color,
+  backgroundColor,
+  onPress,
+  children,
+  style,
+}) => (
   <Pressable
     onPress={onPress}
     style={({pressed}) => [
@@ -33,6 +41,7 @@ const Button = ({name, size, color, backgroundColor, onPress, children}) => (
       pressed && styles.pressed,
       children && styles.hasText,
       backgroundColor && {backgroundColor: backgroundColor},
+      style,
     ]}>
     {name && renderIcon(name, color, size)}
     {children && renderText(children, color, name)}
