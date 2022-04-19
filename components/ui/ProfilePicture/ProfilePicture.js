@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, View, Dimensions} from 'react-native';
+import {Colors} from '../../../constants';
 
 import {DefaultText} from '../../ui';
 import styles from './ProfilePicture.styles';
@@ -10,12 +11,14 @@ const ProfilePicture = ({
   lastName,
   pictureSize,
   initialsSize,
+  backgroundColor,
 }) => (
   <View
     style={{
       ...styles.container,
       width: pictureSize ? pictureSize : Dimensions.get('window').height / 12,
       height: pictureSize ? pictureSize : Dimensions.get('window').height / 12,
+      backgroundColor: backgroundColor ? backgroundColor : Colors.accent,
     }}>
     {photo !== 'N/A' ? (
       <Image source={{uri: photo}} style={styles.image} />

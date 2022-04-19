@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     backgroundColor: Colors.accent,
     borderRadius: 8,
     overflow: 'hidden',
