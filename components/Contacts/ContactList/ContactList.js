@@ -17,8 +17,8 @@ const loadContactsHandler = async dispatch => {
   }
 };
 
-const selectHandler = (navigation, id) => {
-  navigation.navigate('ContactDetails', {id});
+const selectHandler = (navigation, contact) => {
+  navigation.navigate('ContactDetails', {contact});
 };
 
 const sortByName = (a, b) => {
@@ -37,7 +37,7 @@ const sortByName = (a, b) => {
 };
 
 const renderListItem = (navigation, itemData) => {
-  const {id, firstName, lastName, age, photo} = itemData.item;
+  const {firstName, lastName, age, photo} = itemData.item;
 
   return (
     <ContactListItem
@@ -45,7 +45,7 @@ const renderListItem = (navigation, itemData) => {
       lastName={lastName}
       age={age}
       photo={photo}
-      onSelect={() => selectHandler(navigation, id)}
+      onSelect={() => selectHandler(navigation, itemData.item)}
     />
   );
 };
@@ -82,7 +82,7 @@ const ContactList = () => {
     return <LoadingIndicator />;
   }
 
-  if (contacts.length === 0) {
+  if (!contacts || contacts.length === 0) {
     return <EmptyMessage />;
   }
 
