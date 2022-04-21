@@ -33,6 +33,7 @@ const Button = ({
   onPress,
   children,
   style,
+  disabled,
 }) => (
   <Pressable
     onPress={onPress}
@@ -42,7 +43,8 @@ const Button = ({
       children && styles.hasText,
       backgroundColor && {backgroundColor: backgroundColor},
       style,
-    ]}>
+    ]}
+    disabled={disabled}>
     {name && renderIcon(name, color, size)}
     {children && renderText(children, color, name)}
   </Pressable>
