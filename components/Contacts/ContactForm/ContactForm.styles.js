@@ -4,8 +4,12 @@ const styles = StyleSheet.create({
   form: {
     marginBottom: 16,
   },
+  profilePictureContainer: {
+    marginBottom: 16,
+  },
   row: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   ageInput: {
     flex: 1,
