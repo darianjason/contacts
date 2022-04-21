@@ -77,6 +77,7 @@ const saveHandler = async saveParams => {
       await dispatch(addContact(contact));
     } else {
       await dispatch(editContact(id, contact));
+      contact.id = id;
     }
 
     setIsSaving(false);
