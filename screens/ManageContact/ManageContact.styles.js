@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
   cancelButton: {
     marginRight: Platform.OS === 'android' ? 36 : 0,
   },
+  disabled: {
+    opacity: 0.5,
+  },
 });
 
 export default styles;

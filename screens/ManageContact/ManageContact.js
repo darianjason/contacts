@@ -1,5 +1,5 @@
-import React, {useState, useLayoutEffect} from 'react';
-import {View, ActivityIndicator, Alert} from 'react-native';
+import React, {useReducer, useState, useLayoutEffect} from 'react';
+import {ScrollView, ActivityIndicator, Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
@@ -13,21 +13,62 @@ import {
 import {Colors} from '../../constants';
 import styles from './ManageContact.styles';
 
+const INPUT_UPDATE = 'INPUT_UPDATE';
+
+const formReducer = (state, action) => {
+  if (action.type === INPUT_UPDATE) {
+    const values = {
+      ...state.inputValues,
+      [action.input]: action.value,
+    };
+
+    const validities = {
+      ...state.inputValidities,
+      [action.input]: action.isValid,
+    };
+
+    const errors = {
+      ...state.inputErrors,
+      [action.input]: action.errorText,
+    };
+
+    let formIsValid = true;
+    for (const key in validities) {
+      formIsValid = formIsValid && validities[key];
+    }
+
+    return {
+      formIsValid: formIsValid,
+      inputValues: values,
+      inputValidities: validities,
+      inputErrors: errors,
+    };
+  }
+
+  return state;
+};
+
 const cancelHandler = navigation => {
   navigation.goBack();
 };
 
 const saveHandler = async saveParams => {
-  const {isEditing, navigation, inputValues, id, dispatch, setIsSaving} =
+  const {isEditing, navigation, formState, id, dispatch, setIsSaving} =
     saveParams;
+  const {inputValues, formIsValid} = formState;
   const {firstName, lastName, age, photo} = inputValues;
 
   const contact = {
     firstName: firstName,
     lastName: lastName,
     age: +age,
-    photo: photo,
+    photo: photo ? photo : 'N/A',
   };
+
+  if (!formIsValid) {
+    Alert.alert('Invalid data', 'Please check your inputs.');
+    return;
+  }
 
   setIsSaving(true);
 
@@ -39,7 +80,6 @@ const saveHandler = async saveParams => {
     }
 
     setIsSaving(false);
-
     navigation.reset({
       index: 1,
       routes: [{name: 'Contacts'}, {name: 'ContactDetails', params: {contact}}],
@@ -76,7 +116,7 @@ const setNavOptions = navParams => {
   const {
     navigation,
     isEditing,
-    inputValues,
+    formState,
     id,
     dispatch,
     isSaving,
@@ -85,11 +125,13 @@ const setNavOptions = navParams => {
   const saveParams = {
     isEditing,
     navigation,
-    inputValues,
+    formState,
     id,
     dispatch,
     setIsSaving,
   };
+
+  const {formIsValid} = formState;
 
   navigation.setOptions({
     title: isEditing ? 'Edit Contact' : 'Add Contact',
@@ -105,7 +147,12 @@ const setNavOptions = navParams => {
       isSaving ? (
         <ActivityIndicator size="small" color={Colors.accent} />
       ) : (
-        <Button name="save" onPress={() => saveHandler(saveParams)} />
+        <Button
+          name="save"
+          onPress={() => saveHandler(saveParams)}
+          disabled={!formIsValid}
+          style={!formIsValid && styles.disabled}
+        />
       ),
   });
 };
@@ -121,30 +168,48 @@ const ManageContact = ({route}) => {
   const navigation = useNavigation();
 
   const [isSaving, setIsSaving] = useState(false);
-
-  const [inputValues, setInputValues] = useState({
-    firstName: isEditing ? selectedContact.firstName : '',
-    lastName: isEditing ? selectedContact.lastName : '',
-    age: isEditing ? selectedContact.age.toString() : '',
-    photo: isEditing ? selectedContact.photo : '',
+  const [formState, dispatchFormState] = useReducer(formReducer, {
+    inputValues: {
+      firstName: isEditing ? selectedContact.firstName : '',
+      lastName: isEditing ? selectedContact.lastName : '',
+      age: isEditing ? selectedContact.age.toString() : '',
+      photo: isEditing ? selectedContact.photo : 'N/A',
+    },
+    inputValidities: {
+      firstName: !!isEditing,
+      lastName: !!isEditing,
+      age: !!isEditing,
+      photo: !!isEditing,
+    },
+    inputErrors: {
+      firstName: '',
+      lastName: '',
+      age: '',
+      photo: '',
+    },
+    formIsValid: !!isEditing,
   });
 
   useLayoutEffect(() => {
     const navParams = {
       navigation,
       isEditing,
-      inputValues,
+      formState,
       id,
       dispatch,
       isSaving,
       setIsSaving,
     };
     setNavOptions(navParams);
-  }, [navigation, isEditing, inputValues, id, dispatch, isSaving, setIsSaving]);
+  }, [navigation, isEditing, formState, id, dispatch, isSaving, setIsSaving]);
 
   return (
-    <View style={styles.screen}>
-      <ContactForm inputValues={inputValues} setInputValues={setInputValues} />
+    <ScrollView contentContainerStyle={styles.screen}>
+      <ContactForm
+        formState={formState}
+        dispatchFormState={dispatchFormState}
+        isEditing={isEditing}
+      />
       {isEditing && (
         <Button
           name="trash-alt"
@@ -153,14 +218,14 @@ const ManageContact = ({route}) => {
             confirmDelete(
               dispatch,
               id,
-              selectedContact.firstName + selectedContact.lastName,
+              `${selectedContact.firstName} ${selectedContact.lastName}`,
               navigation,
             )
           }>
           Delete Contact
         </Button>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

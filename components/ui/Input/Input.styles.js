@@ -19,6 +19,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: Colors.white,
   },
+  invalidLabel: {
+    color: Colors.red,
+  },
+  invalidInput: {
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: Colors.red,
+  },
+  errorText: {
+    marginTop: 4,
+    fontSize: 12,
+    color: Colors.red,
+  },
 });
 
 export default styles;

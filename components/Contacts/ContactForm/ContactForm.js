@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {View, Dimensions} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {Colors} from '../../../constants';
@@ -6,25 +6,32 @@ import {Colors} from '../../../constants';
 import {Input, ProfilePicture} from '../../ui';
 import styles from './ContactForm.styles';
 
-const inputChangeHandler = (input, setInputValues, value) => {
-  setInputValues(currentInputValues => {
-    return {
-      ...currentInputValues,
-      [input]: value,
-    };
-  });
-};
+const INPUT_UPDATE = 'INPUT_UPDATE';
 
-const ContactForm = ({inputValues, setInputValues}) => {
+const ContactForm = ({formState, dispatchFormState, isEditing}) => {
+  const {inputValues} = formState;
   const {firstName, lastName, age, photo} = inputValues;
+
+  const inputChangeHandler = useCallback(
+    (input, value, isValid, errorText) => {
+      dispatchFormState({
+        type: INPUT_UPDATE,
+        input: input,
+        value: value,
+        isValid: isValid,
+        errorText: errorText,
+      });
+    },
+    [dispatchFormState],
+  );
 
   return (
     <View style={styles.form}>
-      <Pressable>
+      <Pressable style={styles.profilePictureContainer}>
         <ProfilePicture
           photo={photo}
-          firstName={inputValues.firstName}
-          lastName={inputValues.lastName}
+          firstName={firstName}
+          lastName={lastName}
           pictureSize={Dimensions.get('window').height / 8}
           initialsSize={24}
           backgroundColor={Colors.white}
@@ -32,47 +39,55 @@ const ContactForm = ({inputValues, setInputValues}) => {
       </Pressable>
 
       <Input
+        id="firstName"
         label="First Name"
-        textInputOptions={{
-          autoCapitalize: 'words',
-          autoCorrect: false,
-          onChangeText: value =>
-            inputChangeHandler('firstName', setInputValues, value),
-          value: firstName,
-        }}
+        autoCapitalize="words"
+        autoCorrect={false}
+        initialValue={firstName}
+        initiallyValid={!!isEditing}
+        onInputChange={inputChangeHandler}
+        required
+        alphanumeric
+        minLength={3}
+        maxLength={30}
       />
       <Input
+        id="lastName"
         label="Last Name"
-        textInputOptions={{
-          autoCapitalize: 'words',
-          autoCorrect: false,
-          onChangeText: value =>
-            inputChangeHandler('lastName', setInputValues, value),
-          value: lastName,
-        }}
+        autoCapitalize="words"
+        autoCorrect={false}
+        initialValue={lastName}
+        initiallyValid={!!isEditing}
+        onInputChange={inputChangeHandler}
+        required
+        alphanumeric
+        minLength={3}
+        maxLength={30}
       />
 
       <View style={styles.row}>
         <Input
+          id="age"
           label="Age"
-          textInputOptions={{
-            keyboardType: 'number-pad',
-            onChangeText: value =>
-              inputChangeHandler('age', setInputValues, value),
-            value: age,
-          }}
+          keyboardType="number-pad"
+          onInputChange={inputChangeHandler}
+          initialValue={age}
+          initiallyValid={!!isEditing}
+          required
+          numeric
+          min={1}
+          max={100}
           style={styles.ageInput}
         />
         <Input
+          id="photo"
           label="Photo URL"
-          textInputOptions={{
-            keyboardType: 'url',
-            autoCapitalize: 'none',
-            autoCorrect: false,
-            onChangeText: value =>
-              inputChangeHandler('photo', setInputValues, value),
-            value: photo,
-          }}
+          keyboardType="url"
+          autoCapitalize="none"
+          autoCorrect={false}
+          initialValue={photo}
+          initiallyValid={true}
+          onInputChange={inputChangeHandler}
           style={styles.photoInput}
         />
       </View>
