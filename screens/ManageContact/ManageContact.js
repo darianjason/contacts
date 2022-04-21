@@ -90,27 +90,38 @@ const saveHandler = async saveParams => {
   }
 };
 
-const deleteHandler = async (dispatch, id, name, navigation) => {
+const deleteHandler = async (dispatch, contact, navigation, setIsDeleting) => {
+  const {id} = contact;
+
+  setIsDeleting(true);
+
   try {
+    await dispatch(removeContact(id));
     navigation.reset({
       index: 0,
       routes: [{name: 'Contacts'}],
     });
-    await dispatch(removeContact(id));
   } catch (error) {
     console.error(error);
   }
 };
 
-const confirmDelete = (dispatch, id, name, navigation) => {
-  Alert.alert('Are you sure?', `Do you want to delete ${name}?`, [
-    {text: 'No', style: 'default'},
-    {
-      text: 'Yes',
-      style: 'destructive',
-      onPress: () => deleteHandler(dispatch, id, name, navigation),
-    },
-  ]);
+const confirmDelete = (dispatch, contact, navigation, setIsDeleting) => {
+  const {firstName, lastName} = contact;
+
+  Alert.alert(
+    'Are you sure?',
+    `Do you want to delete ${firstName} ${lastName}?`,
+    [
+      {text: 'No', style: 'default'},
+      {
+        text: 'Yes',
+        style: 'destructive',
+        onPress: () =>
+          deleteHandler(dispatch, contact, navigation, setIsDeleting),
+      },
+    ],
+  );
 };
 
 const setNavOptions = navParams => {
@@ -162,13 +173,25 @@ const ManageContact = ({route}) => {
   const id = route.params?.id;
   const isEditing = !!id;
 
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const placeholderContact = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    age: '',
+    photo: '',
+  };
+
   const contacts = useSelector(state => state.contacts.contacts);
-  const selectedContact = contacts.find(contact => contact.id === id);
+  const selectedContact = isDeleting
+    ? placeholderContact
+    : contacts.find(contact => contact.id === id);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [isSaving, setIsSaving] = useState(false);
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       firstName: isEditing ? selectedContact.firstName : '',
@@ -211,21 +234,24 @@ const ManageContact = ({route}) => {
         dispatchFormState={dispatchFormState}
         isEditing={isEditing}
       />
-      {isEditing && (
-        <Button
-          name="trash-alt"
-          color={Colors.red}
-          onPress={() =>
-            confirmDelete(
-              dispatch,
-              id,
-              `${selectedContact.firstName} ${selectedContact.lastName}`,
-              navigation,
-            )
-          }>
-          Delete Contact
-        </Button>
-      )}
+      {isEditing &&
+        (!isDeleting ? (
+          <Button
+            name="trash-alt"
+            color={Colors.red}
+            onPress={() =>
+              confirmDelete(
+                dispatch,
+                selectedContact,
+                navigation,
+                setIsDeleting,
+              )
+            }>
+            Delete Contact
+          </Button>
+        ) : (
+          <ActivityIndicator size="small" color={Colors.red} />
+        ))}
     </ScrollView>
   );
 };
