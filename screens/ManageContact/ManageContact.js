@@ -75,16 +75,21 @@ const saveHandler = async saveParams => {
   try {
     if (!isEditing) {
       await dispatch(addContact(contact));
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Contacts'}],
+      });
     } else {
       await dispatch(editContact(id, contact));
       contact.id = id;
+      navigation.reset({
+        index: 1,
+        routes: [
+          {name: 'Contacts'},
+          {name: 'ContactDetails', params: {contact}},
+        ],
+      });
     }
-
-    setIsSaving(false);
-    navigation.reset({
-      index: 1,
-      routes: [{name: 'Contacts'}, {name: 'ContactDetails', params: {contact}}],
-    });
   } catch (error) {
     console.error(error);
   }
