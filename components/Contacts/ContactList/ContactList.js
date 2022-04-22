@@ -1,6 +1,12 @@
+import React, {useState, useEffect} from 'react';
+import {
+  FlatList,
+  View,
+  ScrollView,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import React, {useState, useCallback, useEffect} from 'react';
-import {FlatList, View, ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {ContactListItem} from '..';
@@ -9,12 +15,14 @@ import {DefaultText} from '../../ui';
 import {Colors} from '../../../constants';
 import styles from './ContactList.styles';
 
-const loadContactsHandler = async dispatch => {
+const loadContacts = async (dispatch, setIsLoading) => {
+  setIsLoading(true);
   try {
     await dispatch(fetchContacts());
   } catch (error) {
     console.error(error);
   }
+  setIsLoading(false);
 };
 
 const selectHandler = (navigation, contact) => {
@@ -56,10 +64,17 @@ const LoadingIndicator = () => (
   </View>
 );
 
-const EmptyMessage = () => (
-  <View style={styles.altContainer}>
-    <DefaultText style={styles.emptyMessage}>No contacts.</DefaultText>
-  </View>
+const EmptyMessage = ({dispatch, isLoading, setIsLoading, setError}) => (
+  <ScrollView
+    contentContainerStyle={styles.altContainer}
+    refreshControl={
+      <RefreshControl
+        refreshing={isLoading}
+        onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
+      />
+    }>
+    <DefaultText style={styles.emptyMessage}>No contacts</DefaultText>
+  </ScrollView>
 );
 
 const ContactList = () => {
@@ -68,29 +83,32 @@ const ContactList = () => {
   const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const loadContacts = useCallback(async () => {
-    await loadContactsHandler(dispatch);
-  }, [dispatch]);
+  
 
   useEffect(() => {
-    setIsLoading(true);
-    loadContacts().then(() => setIsLoading(false));
-  }, [dispatch, loadContacts]);
+    loadContacts(dispatch, setIsLoading);
+  }, [dispatch, setIsLoading]);
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
-  if (!contacts || contacts.length === 0) {
-    return <EmptyMessage />;
+  if (contacts.length === 0) {
+    return (
+      <EmptyMessage
+        dispatch={dispatch}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        setError={setError}
+      />
+    );
   }
 
   return (
     <FlatList
       data={[...contacts].sort(sortByName)}
       renderItem={itemData => renderListItem(navigation, itemData)}
-      onRefresh={loadContacts}
+      onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       refreshing={isLoading}
       contentContainerStyle={styles.listContainer}
     />
