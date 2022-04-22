@@ -35,13 +35,16 @@ export default reducer;
 const BASE_URL = 'https://simple-contact-crud.herokuapp.com';
 
 export const fetchContacts = () => async dispatch => {
-  try {
-    const response = await fetch(`${BASE_URL}/contact`);
-    const contacts = await response.json();
-    dispatch(setContacts(contacts.data));
-  } catch (error) {
-    throw error;
+  const response = await fetch(`${BASE_URL}/contact`);
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch contacts: ${responseData.message} (${response.status})`,
+    );
   }
+
+  dispatch(setContacts(responseData.data));
 };
 
 export const addContact = contact => async dispatch => {
@@ -53,9 +56,13 @@ export const addContact = contact => async dispatch => {
       },
       body: JSON.stringify(contact),
     });
+    const responseData = await response.json();
 
-    const responseJson = await response.json();
-    console.log(responseJson);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to add contact: ${responseData.message} (${response.status})`,
+      );
+    }
 
     dispatch(insertContact(contact));
   } catch (error) {
@@ -72,9 +79,13 @@ export const editContact = (id, data) => async dispatch => {
       },
       body: JSON.stringify(data),
     });
+    const responseData = await response.json();
 
-    const responseJson = await response.json();
-    console.log(responseJson);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to edit contact: ${responseData.message} (${response.status})`,
+      );
+    }
 
     dispatch(updateContact(id, data));
   } catch (error) {
@@ -87,9 +98,13 @@ export const removeContact = id => async dispatch => {
     const response = await fetch(`${BASE_URL}/contact/${id}`, {
       method: 'DELETE',
     });
+    const responseData = await response.json();
 
-    const responseJson = await response.json();
-    console.log(responseJson);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to delete contact: ${responseData.message} (${response.status})`,
+      );
+    }
 
     dispatch(deleteContact(id));
   } catch (error) {

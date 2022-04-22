@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
 import {ContactForm} from '../../components/Contacts';
-import {Button} from '../../components/ui';
+import {Button, ErrorOverlay} from '../../components/ui';
 import {
   addContact,
   editContact,
@@ -53,8 +53,15 @@ const cancelHandler = navigation => {
 };
 
 const saveHandler = async saveParams => {
-  const {isEditing, navigation, formState, id, dispatch, setIsSaving} =
-    saveParams;
+  const {
+    isEditing,
+    navigation,
+    formState,
+    id,
+    dispatch,
+    setIsSaving,
+    setError,
+  } = saveParams;
   const {inputValues, formIsValid} = formState;
   const {firstName, lastName, age, photo} = inputValues;
 
@@ -91,12 +98,15 @@ const saveHandler = async saveParams => {
       });
     }
   } catch (error) {
-    console.error(error);
+    setError(error.message);
+    setIsSaving(false);
   }
 };
 
-const deleteHandler = async (dispatch, contact, navigation, setIsDeleting) => {
-  const {id} = contact;
+const deleteHandler = async deleteParams => {
+  const {dispatch, selectedContact, navigation, setIsDeleting, setError} =
+    deleteParams;
+  const {id} = selectedContact;
 
   setIsDeleting(true);
 
@@ -107,12 +117,14 @@ const deleteHandler = async (dispatch, contact, navigation, setIsDeleting) => {
       routes: [{name: 'Contacts'}],
     });
   } catch (error) {
-    console.error(error);
+    setError(error.message);
+    setIsDeleting(false);
   }
 };
 
-const confirmDelete = (dispatch, contact, navigation, setIsDeleting) => {
-  const {firstName, lastName} = contact;
+const confirmDelete = deleteParams => {
+  const {selectedContact} = deleteParams;
+  const {firstName, lastName} = selectedContact;
 
   Alert.alert(
     'Are you sure?',
@@ -122,8 +134,7 @@ const confirmDelete = (dispatch, contact, navigation, setIsDeleting) => {
       {
         text: 'Yes',
         style: 'destructive',
-        onPress: () =>
-          deleteHandler(dispatch, contact, navigation, setIsDeleting),
+        onPress: () => deleteHandler(deleteParams),
       },
     ],
   );
@@ -138,6 +149,7 @@ const setNavOptions = navParams => {
     dispatch,
     isSaving,
     setIsSaving,
+    setError,
   } = navParams;
   const saveParams = {
     isEditing,
@@ -146,6 +158,7 @@ const setNavOptions = navParams => {
     id,
     dispatch,
     setIsSaving,
+    setError,
   };
 
   const {formIsValid} = formState;
@@ -174,12 +187,17 @@ const setNavOptions = navParams => {
   });
 };
 
+const errorHandler = setError => {
+  setError(null);
+};
+
 const ManageContact = ({route}) => {
   const id = route.params?.id;
   const isEditing = !!id;
 
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState();
 
   const placeholderContact = {
     id: '',
@@ -228,9 +246,33 @@ const ManageContact = ({route}) => {
       dispatch,
       isSaving,
       setIsSaving,
+      setError,
     };
     setNavOptions(navParams);
-  }, [navigation, isEditing, formState, id, dispatch, isSaving, setIsSaving]);
+  }, [
+    navigation,
+    isEditing,
+    formState,
+    id,
+    dispatch,
+    isSaving,
+    setIsSaving,
+    setError,
+  ]);
+
+  const deleteParams = {
+    dispatch,
+    selectedContact,
+    navigation,
+    setIsDeleting,
+    setError,
+  };
+
+  if (error && (!isDeleting || !isSaving)) {
+    return (
+      <ErrorOverlay message={error} onConfirm={() => errorHandler(setError)} />
+    );
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
@@ -244,14 +286,7 @@ const ManageContact = ({route}) => {
           <Button
             name="trash-alt"
             color={Colors.red}
-            onPress={() =>
-              confirmDelete(
-                dispatch,
-                selectedContact,
-                navigation,
-                setIsDeleting,
-              )
-            }>
+            onPress={() => confirmDelete(deleteParams)}>
             Delete Contact
           </Button>
         ) : (

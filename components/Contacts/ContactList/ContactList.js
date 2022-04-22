@@ -11,18 +11,23 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {ContactListItem} from '..';
 import {fetchContacts} from '../../../store/contactsSlice';
-import {DefaultText} from '../../ui';
+import {DefaultText, ErrorOverlay} from '../../ui';
 import {Colors} from '../../../constants';
 import styles from './ContactList.styles';
 
-const loadContacts = async (dispatch, setIsLoading) => {
+const loadContacts = async (dispatch, setIsLoading, setError) => {
   setIsLoading(true);
   try {
     await dispatch(fetchContacts());
   } catch (error) {
-    console.error(error);
+    setError(error.message);
   }
   setIsLoading(false);
+};
+
+const errorHandler = (dispatch, setIsLoading, setError) => {
+  setError(null);
+  loadContacts(dispatch, setIsLoading, setError);
 };
 
 const selectHandler = (navigation, contact) => {
@@ -83,10 +88,20 @@ const ContactList = () => {
   const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    loadContacts(dispatch, setIsLoading);
-  }, [dispatch, setIsLoading]);
+    loadContacts(dispatch, setIsLoading, setError);
+  }, [dispatch, setIsLoading, setError]);
+
+  if (error && !isLoading) {
+    return (
+      <ErrorOverlay
+        message={error}
+        onConfirm={() => errorHandler(dispatch, setIsLoading, setError)}
+      />
+    );
+  }
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -98,6 +113,7 @@ const ContactList = () => {
         dispatch={dispatch}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        setError={setError}
       />
     );
   }
@@ -106,7 +122,7 @@ const ContactList = () => {
     <FlatList
       data={[...contacts].sort(sortByName)}
       renderItem={itemData => renderListItem(navigation, itemData)}
-      onRefresh={() => loadContacts(dispatch, setIsLoading)}
+      onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       refreshing={isLoading}
       contentContainerStyle={styles.listContainer}
     />
