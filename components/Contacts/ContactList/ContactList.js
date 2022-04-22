@@ -83,7 +83,6 @@ const ContactList = () => {
   const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
-  
 
   useEffect(() => {
     loadContacts(dispatch, setIsLoading);
@@ -99,7 +98,6 @@ const ContactList = () => {
         dispatch={dispatch}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
-        setError={setError}
       />
     );
   }
@@ -108,7 +106,7 @@ const ContactList = () => {
     <FlatList
       data={[...contacts].sort(sortByName)}
       renderItem={itemData => renderListItem(navigation, itemData)}
-      onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
+      onRefresh={() => loadContacts(dispatch, setIsLoading)}
       refreshing={isLoading}
       contentContainerStyle={styles.listContainer}
     />
