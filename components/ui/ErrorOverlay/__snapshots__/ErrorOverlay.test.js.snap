@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error Overlay component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 36,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#142B3E",
+        "fontFamily": "Manrope-Bold",
+        "fontSize": 18,
+        "marginBottom": 8,
+      }
+    }
+  >
+    An error occurred
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#060A0E",
+        "fontFamily": "Manrope-Regular",
+      }
+    }
+  >
+    Error message
+  </Text>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+        false,
+        Object {
+          "borderRadius": 32,
+          "flexDirection": "row",
+          "paddingHorizontal": 16,
+          "paddingVertical": 8,
+        },
+        Object {
+          "backgroundColor": "#142B3E",
+        },
+        Object {
+          "alignSelf": "center",
+          "marginTop": 24,
+        },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": "#E2EEF3",
+            "fontSize": 14,
+          },
+          undefined,
+          Object {
+            "fontFamily": "FontAwesome5Free-Solid",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {
+            "fontWeight": "900",
+          },
+        ]
+      }
+    >
+      
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#E2EEF3",
+          "fontFamily": "Manrope-Regular",
+          "marginLeft": 8,
+        }
+      }
+    >
+      Retry
+    </Text>
+  </View>
+</View>
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile Picture component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "backgroundColor": "#E2EEF3",
+      "borderRadius": 8,
+      "height": 111.16666666666667,
+      "justifyContent": "center",
+      "overflow": "hidden",
+      "width": 111.16666666666667,
+    }
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "uri": "uri",
+      }
+    }
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  />
+</View>
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default Text component renders correctly 1`] = `
+<Text
+  style={
+    Object {
+      "color": "#060A0E",
+      "fontFamily": "Manrope-Regular",
+    }
+  }
+>
+  Test
+</Text>
+`;

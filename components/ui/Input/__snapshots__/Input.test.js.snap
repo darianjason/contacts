@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input component renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "justifyContent": "center",
+        "marginBottom": 16,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#142B3E",
+          "fontFamily": "Manrope-Bold",
+          "letterSpacing": 0.5,
+          "marginBottom": 8,
+        },
+        false,
+      ]
+    }
+  />
+  <TextInput
+    onBlur={[Function]}
+    onChangeText={[Function]}
+    onInputChange={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#F7F4F3",
+          "borderRadius": 4,
+          "fontFamily": "Manrope-Regular",
+          "paddingHorizontal": 8,
+          "paddingVertical": 4,
+        },
+        false,
+      ]
+    }
+    value=""
+  />
+</View>
+`;
