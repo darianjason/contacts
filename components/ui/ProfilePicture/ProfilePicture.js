@@ -28,7 +28,11 @@ const ProfilePicture = ({
         backgroundColor: backgroundColor ? backgroundColor : Colors.accent,
       }}>
       {photo !== 'N/A' ? (
-        <Image source={{uri: photo}} style={styles.image} />
+        <Image
+          source={{uri: photo}}
+          style={styles.image}
+          accessibilityRole="image"
+        />
       ) : (
         <DefaultText
           style={{

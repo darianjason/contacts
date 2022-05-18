@@ -26,42 +26,44 @@ const inputReducer = (state, action) => {
   }
 };
 
-const textChangeHandler = (value, validationParams, dispatch) => {
-  let isValid = true;
-  let errorText = '';
+export const validate = (value, validationParams, validation) => {
   const {required, min, max, minLength, maxLength, alphanumeric, numeric} =
     validationParams;
 
   const alphanumericRegex = /^[a-z0-9]+$/i;
 
   if (required && !value.trim()) {
-    isValid = false;
-    errorText = 'Required';
+    validation.errorText = 'Required';
   } else if (alphanumeric && !alphanumericRegex.test(value)) {
-    isValid = false;
-    errorText = 'Must be alphanumeric';
+    validation.errorText = 'Must be alphanumeric';
   } else if (numeric && isNaN(+value)) {
-    isValid = false;
-    errorText = 'Must be numeric';
+    validation.errorText = 'Must be numeric';
   } else if (min && +value < min) {
-    isValid = false;
-    errorText = `Must be larger than ${min - 1}`;
+    validation.errorText = `Must be larger than ${min - 1}`;
   } else if (max && +value > max) {
-    isValid = false;
-    errorText = `Must be smaller than ${max + 1}`;
+    validation.errorText = `Must be smaller than ${max + 1}`;
   } else if (minLength && value.length < minLength) {
-    isValid = false;
-    errorText = `Must be longer than ${minLength - 1} characters`;
+    validation.errorText = `Must be longer than ${minLength - 1} characters`;
   } else if (maxLength && value.length > maxLength) {
-    isValid = false;
-    errorText = `Must be shorter than ${maxLength + 1} characters`;
+    validation.errorText = `Must be shorter than ${maxLength + 1} characters`;
+  } else {
+    validation.isValid = true;
   }
+};
+
+const textChangeHandler = (value, validationParams, dispatch) => {
+  const validation = {
+    isValid: false,
+    errorText: '',
+  };
+
+  validate(value, validationParams, validation);
 
   dispatch({
     type: INPUT_CHANGE,
     value: value,
-    isValid: isValid,
-    errorText: errorText,
+    isValid: validation.isValid,
+    errorText: validation.errorText,
   });
 };
 

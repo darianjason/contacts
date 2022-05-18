@@ -34,7 +34,7 @@ const selectHandler = (navigation, contact) => {
   navigation.navigate('ContactDetails', {contact});
 };
 
-const sortByName = (a, b) => {
+export const sortByName = (a, b) => {
   const nameA = a.firstName.toUpperCase() + a.lastName.toUpperCase();
   const nameB = b.firstName.toUpperCase() + b.lastName.toUpperCase();
 
