@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contact Details screen renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "padding": 36,
+    }
+  }
+>
+  <View>
+    <View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#E2EEF3",
+            "borderRadius": 8,
+            "height": 333.5,
+            "justifyContent": "center",
+            "overflow": "hidden",
+            "width": 333.5,
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Object {
+              "color": "#142B3E",
+              "fontFamily": "Manrope-Bold",
+              "fontSize": 36,
+              "letterSpacing": 2,
+            }
+          }
+        >
+          H
+          W
+        </Text>
+      </View>
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "#142B3E",
+            "fontFamily": "Manrope-Bold",
+            "fontSize": 24,
+            "marginTop": 16,
+          }
+        }
+      >
+        Hello World
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "marginTop": 16,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#060A0E",
+            "fontFamily": "Manrope-Regular",
+          }
+        }
+      >
+        99
+         years old
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

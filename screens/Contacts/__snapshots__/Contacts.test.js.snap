@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contacts screen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 8,
+      }
+    }
+    data={
+      Array [
+        Object {
+          "age": 111,
+          "firstName": "Bilbo",
+          "id": "93ad6070-c92b-11e8-b02f-cbfa15db428b",
+          "lastName": "Baggins",
+          "photo": "http://vignette1.wikia.nocookie.net/lotr/images/6/68/Bilbo_baggins.jpg/revision/latest?cb=20130202022550",
+        },
+        Object {
+          "age": 20,
+          "firstName": "Luke",
+          "id": "b3abd640-c92b-11e8-b02f-cbfa15db428b",
+          "lastName": "Skywalker",
+          "photo": "N/A",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onRefresh={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+    refreshing={false}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    viewabilityConfigCallbackPairs={Array []}
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessibilityLabel="Contact list item"
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={false}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "borderRadius": 8,
+                "flexDirection": "row",
+                "marginVertical": 8,
+                "overflow": "hidden",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#E2EEF3",
+                  "borderRadius": 8,
+                  "height": 111.16666666666667,
+                  "justifyContent": "center",
+                  "overflow": "hidden",
+                  "width": 111.16666666666667,
+                }
+              }
+            >
+              <Image
+                accessibilityRole="image"
+                source={
+                  Object {
+                    "uri": "http://vignette1.wikia.nocookie.net/lotr/images/6/68/Bilbo_baggins.jpg/revision/latest?cb=20130202022550",
+                  }
+                }
+                style={
+                  Object {
+                    "height": "100%",
+                    "width": "100%",
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "padding": 16,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#060A0E",
+                    "fontFamily": "Manrope-Regular",
+                  }
+                }
+              >
+                Bilbo
+                 
+                Baggins
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessibilityLabel="Contact list item"
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={false}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "borderRadius": 8,
+                "flexDirection": "row",
+                "marginVertical": 8,
+                "overflow": "hidden",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#E2EEF3",
+                  "borderRadius": 8,
+                  "height": 111.16666666666667,
+                  "justifyContent": "center",
+                  "overflow": "hidden",
+                  "width": 111.16666666666667,
+                }
+              }
+            >
+              <Text
+                numberOfLines={1}
+                style={
+                  Object {
+                    "color": "#142B3E",
+                    "fontFamily": "Manrope-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 2,
+                  }
+                }
+              >
+                L
+                S
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "padding": 16,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#060A0E",
+                    "fontFamily": "Manrope-Regular",
+                  }
+                }
+              >
+                Luke
+                 
+                Skywalker
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
