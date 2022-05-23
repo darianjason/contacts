@@ -12,7 +12,7 @@ const ErrorOverlay = ({message, onConfirm}) => (
     <DefaultText>{message}</DefaultText>
     <Button
       onPress={onConfirm}
-      name="redo-alt"
+      icon="redo-alt"
       size={14}
       color={Colors.accent}
       backgroundColor={Colors.primary}

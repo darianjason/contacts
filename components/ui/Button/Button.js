@@ -6,27 +6,27 @@ import {Colors} from '../../../constants';
 import DefaultText from '../DefaultText/DefaultText';
 import styles from './Button.styles';
 
-const renderIcon = (name, color, size) => (
+const renderIcon = (icon, color, size) => (
   <Icon
-    name={name}
+    name={icon}
     color={color ? color : Colors.accent}
     size={size ? size : 18}
   />
 );
 
-const renderText = (children, color, name) => (
+const renderText = (children, color, icon) => (
   <DefaultText
     style={{
       ...styles.text,
       color: color ? color : Colors.accent,
-      marginLeft: name && 8,
+      marginLeft: icon && 8,
     }}>
     {children}
   </DefaultText>
 );
 
 const Button = ({
-  name,
+  icon,
   size,
   color,
   backgroundColor,
@@ -45,8 +45,8 @@ const Button = ({
       style,
     ]}
     disabled={disabled}>
-    {name && renderIcon(name, color, size)}
-    {children && renderText(children, color, name)}
+    {icon && renderIcon(icon, color, size)}
+    {children && renderText(children, color, icon)}
   </Pressable>
 );
 

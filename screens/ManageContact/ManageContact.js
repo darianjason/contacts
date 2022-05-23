@@ -167,7 +167,7 @@ const setNavOptions = navParams => {
     title: isEditing ? 'Edit Contact' : 'Add Contact',
     headerLeft: () => (
       <Button
-        name="times-circle"
+        icon="times-circle"
         color={Colors.red}
         onPress={() => cancelHandler(navigation)}
         style={styles.cancelButton}
@@ -178,7 +178,7 @@ const setNavOptions = navParams => {
         <ActivityIndicator size="small" color={Colors.accent} />
       ) : (
         <Button
-          name="save"
+          icon="save"
           onPress={() => saveHandler(saveParams)}
           disabled={!formIsValid}
           style={!formIsValid && styles.disabled}
@@ -284,7 +284,7 @@ const ManageContact = ({route}) => {
       {isEditing &&
         (!isDeleting ? (
           <Button
-            name="trash-alt"
+            icon="trash-alt"
             color={Colors.red}
             onPress={() => confirmDelete(deleteParams)}>
             Delete Contact
