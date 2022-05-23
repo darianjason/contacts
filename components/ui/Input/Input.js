@@ -1,7 +1,7 @@
 import React, {useReducer, useEffect} from 'react';
 import {View, Text, TextInput} from 'react-native';
-import DefaultText from '../DefaultText/DefaultText';
 
+import DefaultText from '../DefaultText/DefaultText';
 import styles from './Input.styles';
 
 const INPUT_CHANGE = 'INPUT_CHANGE';

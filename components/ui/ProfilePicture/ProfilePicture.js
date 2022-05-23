@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, View, Dimensions} from 'react-native';
-import {Colors} from '../../../constants';
 
+import {Colors} from '../../../constants';
 import {DefaultText} from '../../ui';
 import styles from './ProfilePicture.styles';
 

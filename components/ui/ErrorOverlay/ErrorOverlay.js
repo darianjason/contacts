@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 
+import {Colors} from '../../../constants';
 import DefaultText from '../DefaultText/DefaultText';
 import Button from '../Button/Button';
-import {Colors} from '../../../constants';
 import styles from './ErrorOverlay.styles';
 
 const ErrorOverlay = ({message, onConfirm}) => (

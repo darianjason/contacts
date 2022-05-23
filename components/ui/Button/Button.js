@@ -1,10 +1,10 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Pressable} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {Colors} from '../../../constants';
-import styles from './Button.styles';
 import DefaultText from '../DefaultText/DefaultText';
+import styles from './Button.styles';
 
 const renderIcon = (name, color, size) => (
   <Icon

@@ -9,10 +9,10 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {ContactListItem} from '..';
 import {fetchContacts} from '../../../store/contactsSlice';
-import {DefaultText, ErrorOverlay} from '../../ui';
 import {Colors} from '../../../constants';
+import {DefaultText, ErrorOverlay} from '../../ui';
+import {ContactListItem} from '..';
 import styles from './ContactList.styles';
 
 const loadContacts = async (dispatch, setIsLoading, setError) => {
