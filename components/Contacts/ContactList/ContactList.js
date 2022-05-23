@@ -34,7 +34,7 @@ const selectHandler = (navigation, contact) => {
   navigation.navigate('ContactDetails', {contact});
 };
 
-const sortByName = (a, b) => {
+export const sortByName = (a, b) => {
   const nameA = a.firstName.toUpperCase() + a.lastName.toUpperCase();
   const nameB = b.firstName.toUpperCase() + b.lastName.toUpperCase();
 
@@ -47,6 +47,10 @@ const sortByName = (a, b) => {
   }
 
   return 0;
+};
+
+const sortContacts = contacts => {
+  return [...contacts].sort(sortByName);
 };
 
 const renderListItem = (navigation, itemData) => {
@@ -118,9 +122,11 @@ const ContactList = () => {
     );
   }
 
+  const sortedContacts = sortContacts(contacts);
+
   return (
     <FlatList
-      data={[...contacts].sort(sortByName)}
+      data={sortedContacts}
       renderItem={itemData => renderListItem(navigation, itemData)}
       onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       refreshing={isLoading}
