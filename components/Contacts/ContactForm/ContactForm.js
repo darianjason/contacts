@@ -1,8 +1,7 @@
 import React, {useCallback} from 'react';
-import {View, Dimensions} from 'react-native';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import {Colors} from '../../../constants';
+import {View, Pressable, Dimensions} from 'react-native';
 
+import {Colors} from '../../../constants';
 import {Input, ProfilePicture} from '../../ui';
 import styles from './ContactForm.styles';
 
