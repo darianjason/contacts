@@ -41,7 +41,6 @@ const ContactForm = ({formState, dispatchFormState, isEditing}) => {
         id="firstName"
         label="First Name"
         autoCapitalize="words"
-        autoCorrect={false}
         initialValue={firstName}
         initiallyValid={!!isEditing}
         onInputChange={inputChangeHandler}
@@ -54,7 +53,6 @@ const ContactForm = ({formState, dispatchFormState, isEditing}) => {
         id="lastName"
         label="Last Name"
         autoCapitalize="words"
-        autoCorrect={false}
         initialValue={lastName}
         initiallyValid={!!isEditing}
         onInputChange={inputChangeHandler}
@@ -83,7 +81,6 @@ const ContactForm = ({formState, dispatchFormState, isEditing}) => {
           label="Photo URL"
           keyboardType="url"
           autoCapitalize="none"
-          autoCorrect={false}
           initialValue={photo}
           initiallyValid={true}
           onInputChange={inputChangeHandler}
