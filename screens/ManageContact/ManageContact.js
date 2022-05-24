@@ -10,10 +10,8 @@ import {
   editContact,
   removeContact,
 } from '../../store/contactsSlice';
-import {Colors} from '../../constants';
+import {Colors, INPUT_UPDATE} from '../../constants';
 import styles from './ManageContact.styles';
-
-const INPUT_UPDATE = 'INPUT_UPDATE';
 
 const formReducer = (state, action) => {
   if (action.type === INPUT_UPDATE) {

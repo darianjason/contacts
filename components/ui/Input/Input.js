@@ -1,11 +1,9 @@
 import React, {useReducer, useEffect} from 'react';
 import {View, Text, TextInput} from 'react-native';
 
+import {INPUT_CHANGE, INPUT_BLUR} from '../../../constants';
 import DefaultText from '../DefaultText/DefaultText';
 import styles from './Input.styles';
-
-const INPUT_CHANGE = 'INPUT_CHANGE';
-const INPUT_BLUR = 'INPUT_BLUR';
 
 const inputReducer = (state, action) => {
   switch (action.type) {
