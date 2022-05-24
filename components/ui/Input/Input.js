@@ -24,42 +24,68 @@ const inputReducer = (state, action) => {
   }
 };
 
-const textChangeHandler = (value, validationParams, dispatch) => {
-  let isValid = true;
-  let errorText = '';
+const validateRequired = (value, required, validation) => {
+  if (required && !value.trim()) {
+    validation.isValid = false;
+    validation.errorText = 'Required';
+  }
+};
+
+const validateType = (value, alphanumeric, numeric, validation) => {
+  const alphanumericRegex = /^[a-z0-9]+$/i;
+
+  if (alphanumeric && !alphanumericRegex.test(value)) {
+    validation.isValid = false;
+    validation.errorText = 'Must be alphanumeric';
+  } else if (numeric && isNaN(+value)) {
+    validation.isValid = false;
+    validation.errorText = 'Must be numeric';
+  }
+};
+
+const validateAmount = (value, min, max, validation) => {
+  if (min && +value < min) {
+    validation.isValid = false;
+    validation.errorText = `Must be larger than ${min - 1}`;
+  } else if (max && +value > max) {
+    validation.isValid = false;
+    validation.errorText = `Must be smaller than ${max + 1}`;
+  }
+};
+
+const validateLength = (value, minLength, maxLength, validation) => {
+  if (minLength && value.length < minLength) {
+    validation.isValid = false;
+    validation.errorText = `Must be longer than ${minLength - 1} characters`;
+  } else if (maxLength && value.length > maxLength) {
+    validation.isValid = false;
+    validation.errorText = `Must be shorter than ${maxLength + 1} characters`;
+  }
+};
+
+export const validate = (value, validationParams, validation) => {
   const {required, min, max, minLength, maxLength, alphanumeric, numeric} =
     validationParams;
 
-  const alphanumericRegex = /^[a-z0-9]+$/i;
+  validateLength(value, minLength, maxLength, validation);
+  validateAmount(value, min, max, validation);
+  validateType(value, alphanumeric, numeric, validation);
+  validateRequired(value, required, validation);
+};
 
-  if (required && !value.trim()) {
-    isValid = false;
-    errorText = 'Required';
-  } else if (alphanumeric && !alphanumericRegex.test(value)) {
-    isValid = false;
-    errorText = 'Must be alphanumeric';
-  } else if (numeric && isNaN(+value)) {
-    isValid = false;
-    errorText = 'Must be numeric';
-  } else if (min && +value < min) {
-    isValid = false;
-    errorText = `Must be larger than ${min - 1}`;
-  } else if (max && +value > max) {
-    isValid = false;
-    errorText = `Must be smaller than ${max + 1}`;
-  } else if (minLength && value.length < minLength) {
-    isValid = false;
-    errorText = `Must be longer than ${minLength - 1} characters`;
-  } else if (maxLength && value.length > maxLength) {
-    isValid = false;
-    errorText = `Must be shorter than ${maxLength + 1} characters`;
-  }
+const textChangeHandler = (value, validationParams, dispatch) => {
+  const validation = {
+    isValid: true,
+    errorText: '',
+  };
+
+  validate(value, validationParams, validation);
 
   dispatch({
     type: INPUT_CHANGE,
     value: value,
-    isValid: isValid,
-    errorText: errorText,
+    isValid: validation.isValid,
+    errorText: validation.errorText,
   });
 };
 
