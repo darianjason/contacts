@@ -284,7 +284,8 @@ const ManageContact = ({route}) => {
           <Button
             icon="trash-alt"
             color={Colors.red}
-            onPress={() => confirmDelete(deleteParams)}>
+            onPress={() => confirmDelete(deleteParams)}
+          >
             Delete Contact
           </Button>
         ) : (

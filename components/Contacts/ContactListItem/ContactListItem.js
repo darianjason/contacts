@@ -15,7 +15,8 @@ const NameContainer = ({firstName, lastName}) => (
 const ContactListItem = ({firstName, lastName, age, photo, onSelect}) => (
   <Pressable
     onPress={onSelect}
-    style={({pressed}) => pressed && styles.pressed}>
+    style={({pressed}) => pressed && styles.pressed}
+  >
     <Card style={styles.itemContainer}>
       <ProfilePicture photo={photo} firstName={firstName} lastName={lastName} />
       <NameContainer firstName={firstName} lastName={lastName} />

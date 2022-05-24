@@ -16,7 +16,8 @@ const ErrorOverlay = ({message, onConfirm}) => (
       size={14}
       color={Colors.accent}
       backgroundColor={Colors.primary}
-      style={styles.button}>
+      style={styles.button}
+    >
       Retry
     </Button>
   </View>

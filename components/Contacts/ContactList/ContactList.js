@@ -81,7 +81,8 @@ const EmptyMessage = ({dispatch, isLoading, setIsLoading, setError}) => (
         refreshing={isLoading}
         onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       />
-    }>
+    }
+  >
     <DefaultText style={styles.emptyMessage}>No contacts</DefaultText>
   </ScrollView>
 );

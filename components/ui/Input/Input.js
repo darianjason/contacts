@@ -136,7 +136,8 @@ const Input = props => {
   return (
     <View style={[styles.container, style]}>
       <Text
-        style={[styles.label, !isValid && isTouched && styles.invalidLabel]}>
+        style={[styles.label, !isValid && isTouched && styles.invalidLabel]}
+      >
         {label}
       </Text>
       <TextInput

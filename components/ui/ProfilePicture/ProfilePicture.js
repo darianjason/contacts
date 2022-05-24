@@ -26,7 +26,8 @@ const ProfilePicture = ({
           ? pictureSize
           : Dimensions.get('window').height / 12,
         backgroundColor: backgroundColor ? backgroundColor : Colors.accent,
-      }}>
+      }}
+    >
       {photo !== 'N/A' ? (
         <Image source={{uri: photo}} style={styles.image} />
       ) : (
@@ -35,7 +36,8 @@ const ProfilePicture = ({
             ...styles.initials,
             fontSize: initialsSize ? initialsSize : 16,
           }}
-          numberOfLines={1}>
+          numberOfLines={1}
+        >
           {firstName[0]}
           {lastName[0]}
         </DefaultText>

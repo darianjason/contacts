@@ -20,7 +20,8 @@ const renderText = (children, color, icon) => (
       ...styles.text,
       color: color ? color : Colors.accent,
       marginLeft: icon && 8,
-    }}>
+    }}
+  >
     {children}
   </DefaultText>
 );
@@ -44,7 +45,8 @@ const Button = ({
       backgroundColor && {backgroundColor: backgroundColor},
       style,
     ]}
-    disabled={disabled}>
+    disabled={disabled}
+  >
     {icon && renderIcon(icon, color, size)}
     {children && renderText(children, color, icon)}
   </Pressable>
