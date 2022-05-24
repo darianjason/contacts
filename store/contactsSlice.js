@@ -30,8 +30,9 @@ const contactsSlice = createSlice({
 });
 
 const {actions, reducer} = contactsSlice;
-export const {setContacts, insertContact, updateContact, deleteContact} =
-  actions;
+export const {
+  setContacts, insertContact, updateContact, deleteContact
+} = actions;
 export default reducer;
 
 const {BASE_URL} = Links;

@@ -64,8 +64,10 @@ const validateLength = (value, minLength, maxLength, validation) => {
 };
 
 export const validate = (value, validationParams, validation) => {
-  const {required, min, max, minLength, maxLength, alphanumeric, numeric} =
-    validationParams;
+  const {
+    required, min, max, minLength,
+    maxLength, alphanumeric, numeric
+  } = validationParams;
 
   validateLength(value, minLength, maxLength, validation);
   validateAmount(value, min, max, validation);
