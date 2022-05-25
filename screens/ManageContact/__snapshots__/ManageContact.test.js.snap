@@ -1,0 +1,300 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Manage Contact screen renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "backgroundColor": "#E2EEF3",
+      "flex": 1,
+      "padding": 36,
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "marginBottom": 16,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginBottom": 16,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "#F7F4F3",
+              "borderRadius": 8,
+              "height": 166.75,
+              "justifyContent": "center",
+              "overflow": "hidden",
+              "width": 166.75,
+            }
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Object {
+                "color": "#142B3E",
+                "fontFamily": "Manrope-Bold",
+                "fontSize": 24,
+                "letterSpacing": 2,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "justifyContent": "center",
+              "marginBottom": 16,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#142B3E",
+                "fontFamily": "Manrope-Bold",
+                "letterSpacing": 0.5,
+                "marginBottom": 8,
+              },
+              false,
+            ]
+          }
+        >
+          First Name
+        </Text>
+        <TextInput
+          alphanumeric={true}
+          autoCapitalize="words"
+          autoCorrect={false}
+          id="firstName"
+          initialValue=""
+          initiallyValid={false}
+          label="First Name"
+          maxLength={30}
+          minLength={3}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onInputChange={[Function]}
+          required={true}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#F7F4F3",
+                "borderRadius": 4,
+                "fontFamily": "Manrope-Regular",
+                "paddingHorizontal": 8,
+                "paddingVertical": 4,
+              },
+              false,
+            ]
+          }
+          value=""
+        />
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "justifyContent": "center",
+              "marginBottom": 16,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#142B3E",
+                "fontFamily": "Manrope-Bold",
+                "letterSpacing": 0.5,
+                "marginBottom": 8,
+              },
+              false,
+            ]
+          }
+        >
+          Last Name
+        </Text>
+        <TextInput
+          alphanumeric={true}
+          autoCapitalize="words"
+          autoCorrect={false}
+          id="lastName"
+          initialValue=""
+          initiallyValid={false}
+          label="Last Name"
+          maxLength={30}
+          minLength={3}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onInputChange={[Function]}
+          required={true}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#F7F4F3",
+                "borderRadius": 4,
+                "fontFamily": "Manrope-Regular",
+                "paddingHorizontal": 8,
+                "paddingVertical": 4,
+              },
+              false,
+            ]
+          }
+          value=""
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "justifyContent": "center",
+                "marginBottom": 16,
+              },
+              Object {
+                "flex": 1,
+                "marginRight": 24,
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#142B3E",
+                  "fontFamily": "Manrope-Bold",
+                  "letterSpacing": 0.5,
+                  "marginBottom": 8,
+                },
+                false,
+              ]
+            }
+          >
+            Age
+          </Text>
+          <TextInput
+            id="age"
+            initialValue=""
+            initiallyValid={false}
+            keyboardType="number-pad"
+            label="Age"
+            max={100}
+            min={1}
+            numeric={true}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onInputChange={[Function]}
+            required={true}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#F7F4F3",
+                  "borderRadius": 4,
+                  "fontFamily": "Manrope-Regular",
+                  "paddingHorizontal": 8,
+                  "paddingVertical": 4,
+                },
+                false,
+              ]
+            }
+            value=""
+          />
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "justifyContent": "center",
+                "marginBottom": 16,
+              },
+              Object {
+                "flex": 4,
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#142B3E",
+                  "fontFamily": "Manrope-Bold",
+                  "letterSpacing": 0.5,
+                  "marginBottom": 8,
+                },
+                false,
+              ]
+            }
+          >
+            Photo URL
+          </Text>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            id="photo"
+            initialValue="N/A"
+            initiallyValid={true}
+            keyboardType="url"
+            label="Photo URL"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onInputChange={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#F7F4F3",
+                  "borderRadius": 4,
+                  "fontFamily": "Manrope-Regular",
+                  "paddingHorizontal": 8,
+                  "paddingVertical": 4,
+                },
+                false,
+              ]
+            }
+            value="N/A"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

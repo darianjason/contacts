@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component renders correctly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      },
+      false,
+      Object {
+        "borderRadius": 32,
+        "flexDirection": "row",
+        "paddingHorizontal": 16,
+        "paddingVertical": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      Array [
+        Object {
+          "color": "#E2EEF3",
+          "fontSize": 18,
+        },
+        undefined,
+        Object {
+          "fontFamily": "FontAwesome5Free-Regular",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {
+          "fontWeight": "400",
+        },
+      ]
+    }
+  >
+    
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#E2EEF3",
+        "fontFamily": "Manrope-Regular",
+        "marginLeft": 8,
+      }
+    }
+  >
+    Button
+  </Text>
+</View>
+`;

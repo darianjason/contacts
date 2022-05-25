@@ -50,7 +50,7 @@ const cancelHandler = navigation => {
   navigation.goBack();
 };
 
-const saveHandler = async saveParams => {
+export const saveHandler = async saveParams => {
   const {
     isEditing,
     navigation,
@@ -95,13 +95,16 @@ const saveHandler = async saveParams => {
         ],
       });
     }
+
+    return contact;
   } catch (error) {
     setError(error.message);
     setIsSaving(false);
+    return error.message;
   }
 };
 
-const deleteHandler = async deleteParams => {
+export const deleteHandler = async deleteParams => {
   const {dispatch, selectedContact, navigation, setIsDeleting, setError} =
     deleteParams;
   const {id} = selectedContact;
@@ -114,9 +117,12 @@ const deleteHandler = async deleteParams => {
       index: 0,
       routes: [{name: 'Contacts'}],
     });
+
+    return id;
   } catch (error) {
     setError(error.message);
     setIsDeleting(false);
+    return error.message;
   }
 };
 

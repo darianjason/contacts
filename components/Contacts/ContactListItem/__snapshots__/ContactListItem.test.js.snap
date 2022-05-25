@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactListItem component renders correctly 1`] = `
+<View
+  accessibilityLabel="Contact list item"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "marginVertical": 8,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#E2EEF3",
+          "borderRadius": 8,
+          "height": 111.16666666666667,
+          "justifyContent": "center",
+          "overflow": "hidden",
+          "width": 111.16666666666667,
+        }
+      }
+    >
+      <Image
+        accessibilityRole="image"
+        source={
+          Object {
+            "uri": "uri",
+          }
+        }
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "padding": 16,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#060A0E",
+            "fontFamily": "Manrope-Regular",
+          }
+        }
+      >
+        John
+         
+        Doe
+      </Text>
+    </View>
+  </View>
+</View>
+`;

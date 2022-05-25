@@ -1,0 +1,291 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contact Form component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "marginBottom": 16,
+    }
+  }
+>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "marginBottom": 16,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#F7F4F3",
+          "borderRadius": 8,
+          "height": 166.75,
+          "justifyContent": "center",
+          "overflow": "hidden",
+          "width": 166.75,
+        }
+      }
+    >
+      <Image
+        accessibilityRole="image"
+        source={
+          Object {
+            "uri": "uri",
+          }
+        }
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "justifyContent": "center",
+          "marginBottom": 16,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#142B3E",
+            "fontFamily": "Manrope-Bold",
+            "letterSpacing": 0.5,
+            "marginBottom": 8,
+          },
+          false,
+        ]
+      }
+    >
+      First Name
+    </Text>
+    <TextInput
+      alphanumeric={true}
+      autoCapitalize="words"
+      autoCorrect={false}
+      id="firstName"
+      initialValue="Hello"
+      initiallyValid={true}
+      label="First Name"
+      maxLength={30}
+      minLength={3}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onInputChange={[Function]}
+      required={true}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#F7F4F3",
+            "borderRadius": 4,
+            "fontFamily": "Manrope-Regular",
+            "paddingHorizontal": 8,
+            "paddingVertical": 4,
+          },
+          false,
+        ]
+      }
+      value="Hello"
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "justifyContent": "center",
+          "marginBottom": 16,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#142B3E",
+            "fontFamily": "Manrope-Bold",
+            "letterSpacing": 0.5,
+            "marginBottom": 8,
+          },
+          false,
+        ]
+      }
+    >
+      Last Name
+    </Text>
+    <TextInput
+      alphanumeric={true}
+      autoCapitalize="words"
+      autoCorrect={false}
+      id="lastName"
+      initialValue="World"
+      initiallyValid={true}
+      label="Last Name"
+      maxLength={30}
+      minLength={3}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onInputChange={[Function]}
+      required={true}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#F7F4F3",
+            "borderRadius": 4,
+            "fontFamily": "Manrope-Regular",
+            "paddingHorizontal": 8,
+            "paddingVertical": 4,
+          },
+          false,
+        ]
+      }
+      value="World"
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "justifyContent": "center",
+            "marginBottom": 16,
+          },
+          Object {
+            "flex": 1,
+            "marginRight": 24,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#142B3E",
+              "fontFamily": "Manrope-Bold",
+              "letterSpacing": 0.5,
+              "marginBottom": 8,
+            },
+            false,
+          ]
+        }
+      >
+        Age
+      </Text>
+      <TextInput
+        id="age"
+        initialValue="50"
+        initiallyValid={true}
+        keyboardType="number-pad"
+        label="Age"
+        max={100}
+        min={1}
+        numeric={true}
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onInputChange={[Function]}
+        required={true}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#F7F4F3",
+              "borderRadius": 4,
+              "fontFamily": "Manrope-Regular",
+              "paddingHorizontal": 8,
+              "paddingVertical": 4,
+            },
+            false,
+          ]
+        }
+        value="50"
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "justifyContent": "center",
+            "marginBottom": 16,
+          },
+          Object {
+            "flex": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#142B3E",
+              "fontFamily": "Manrope-Bold",
+              "letterSpacing": 0.5,
+              "marginBottom": 8,
+            },
+            false,
+          ]
+        }
+      >
+        Photo URL
+      </Text>
+      <TextInput
+        autoCapitalize="none"
+        autoCorrect={false}
+        id="photo"
+        initialValue="uri"
+        initiallyValid={true}
+        keyboardType="url"
+        label="Photo URL"
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onInputChange={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#F7F4F3",
+              "borderRadius": 4,
+              "fontFamily": "Manrope-Regular",
+              "paddingHorizontal": 8,
+              "paddingVertical": 4,
+            },
+            false,
+          ]
+        }
+        value="uri"
+      />
+    </View>
+  </View>
+</View>
+`;

@@ -16,6 +16,7 @@ const ContactListItem = ({firstName, lastName, age, photo, onSelect}) => (
   <Pressable
     onPress={onSelect}
     style={({pressed}) => pressed && styles.pressed}
+    accessibilityLabel="Contact list item"
   >
     <Card style={styles.itemContainer}>
       <ProfilePicture photo={photo} firstName={firstName} lastName={lastName} />
