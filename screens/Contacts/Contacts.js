@@ -9,7 +9,7 @@ const setNavOptions = navigation => {
   navigation.setOptions({
     headerRight: () => (
       <Button
-        name="plus-circle"
+        icon="plus-circle"
         onPress={() => navigation.navigate('ManageContact')}
       />
     ),

@@ -1,11 +1,9 @@
 import React, {useReducer, useEffect} from 'react';
 import {View, Text, TextInput} from 'react-native';
+
+import {INPUT_CHANGE, INPUT_BLUR} from '../../../constants';
 import DefaultText from '../DefaultText/DefaultText';
-
 import styles from './Input.styles';
-
-const INPUT_CHANGE = 'INPUT_CHANGE';
-const INPUT_BLUR = 'INPUT_BLUR';
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -26,34 +24,60 @@ const inputReducer = (state, action) => {
   }
 };
 
-export const validate = (value, validationParams, validation) => {
-  const {required, min, max, minLength, maxLength, alphanumeric, numeric} =
-    validationParams;
+const validateRequired = (value, required, validation) => {
+  if (required && !value.trim()) {
+    validation.isValid = false;
+    validation.errorText = 'Required';
+  }
+};
 
+const validateType = (value, alphanumeric, numeric, validation) => {
   const alphanumericRegex = /^[a-z0-9]+$/i;
 
-  if (required && !value.trim()) {
-    validation.errorText = 'Required';
-  } else if (alphanumeric && !alphanumericRegex.test(value)) {
+  if (alphanumeric && !alphanumericRegex.test(value)) {
+    validation.isValid = false;
     validation.errorText = 'Must be alphanumeric';
   } else if (numeric && isNaN(+value)) {
+    validation.isValid = false;
     validation.errorText = 'Must be numeric';
-  } else if (min && +value < min) {
+  }
+};
+
+const validateAmount = (value, min, max, validation) => {
+  if (min && +value < min) {
+    validation.isValid = false;
     validation.errorText = `Must be larger than ${min - 1}`;
   } else if (max && +value > max) {
+    validation.isValid = false;
     validation.errorText = `Must be smaller than ${max + 1}`;
-  } else if (minLength && value.length < minLength) {
+  }
+};
+
+const validateLength = (value, minLength, maxLength, validation) => {
+  if (minLength && value.length < minLength) {
+    validation.isValid = false;
     validation.errorText = `Must be longer than ${minLength - 1} characters`;
   } else if (maxLength && value.length > maxLength) {
+    validation.isValid = false;
     validation.errorText = `Must be shorter than ${maxLength + 1} characters`;
-  } else {
-    validation.isValid = true;
   }
+};
+
+export const validate = (value, validationParams, validation) => {
+  const {
+    required, min, max, minLength,
+    maxLength, alphanumeric, numeric
+  } = validationParams;
+
+  validateLength(value, minLength, maxLength, validation);
+  validateAmount(value, min, max, validation);
+  validateType(value, alphanumeric, numeric, validation);
+  validateRequired(value, required, validation);
 };
 
 const textChangeHandler = (value, validationParams, dispatch) => {
   const validation = {
-    isValid: false,
+    isValid: true,
     errorText: '',
   };
 
@@ -114,7 +138,8 @@ const Input = props => {
   return (
     <View style={[styles.container, style]}>
       <Text
-        style={[styles.label, !isValid && isTouched && styles.invalidLabel]}>
+        style={[styles.label, !isValid && isTouched && styles.invalidLabel]}
+      >
         {label}
       </Text>
       <TextInput

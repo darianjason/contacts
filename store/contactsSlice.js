@@ -1,5 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import {Links} from '../constants';
+
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -28,11 +30,12 @@ const contactsSlice = createSlice({
 });
 
 const {actions, reducer} = contactsSlice;
-export const {setContacts, insertContact, updateContact, deleteContact} =
-  actions;
+export const {
+  setContacts, insertContact, updateContact, deleteContact
+} = actions;
 export default reducer;
 
-const BASE_URL = 'https://simple-contact-crud.herokuapp.com';
+const {BASE_URL} = Links;
 
 export const fetchContacts = () => async dispatch => {
   const response = await fetch(`${BASE_URL}/contact`);

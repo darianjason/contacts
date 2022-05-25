@@ -1,4 +1,5 @@
-import {StyleSheet, Platform} from 'react-native';
+import {StyleSheet} from 'react-native';
+
 import {Colors} from '../../constants';
 
 const styles = StyleSheet.create({
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.accent,
   },
   cancelButton: {
-    marginRight: Platform.OS === 'android' ? 36 : 0,
+    marginRight: 36,
   },
   disabled: {
     opacity: 0.5,

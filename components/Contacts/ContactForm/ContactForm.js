@@ -1,8 +1,7 @@
 import React, {useCallback} from 'react';
-import {View, Dimensions} from 'react-native';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import {Colors} from '../../../constants';
+import {View, Pressable, Dimensions} from 'react-native';
 
+import {Colors} from '../../../constants';
 import {Input, ProfilePicture} from '../../ui';
 import styles from './ContactForm.styles';
 
@@ -42,7 +41,6 @@ const ContactForm = ({formState, dispatchFormState, isEditing}) => {
         id="firstName"
         label="First Name"
         autoCapitalize="words"
-        autoCorrect={false}
         initialValue={firstName}
         initiallyValid={!!isEditing}
         onInputChange={inputChangeHandler}
@@ -55,7 +53,6 @@ const ContactForm = ({formState, dispatchFormState, isEditing}) => {
         id="lastName"
         label="Last Name"
         autoCapitalize="words"
-        autoCorrect={false}
         initialValue={lastName}
         initiallyValid={!!isEditing}
         onInputChange={inputChangeHandler}
@@ -84,7 +81,6 @@ const ContactForm = ({formState, dispatchFormState, isEditing}) => {
           label="Photo URL"
           keyboardType="url"
           autoCapitalize="none"
-          autoCorrect={false}
           initialValue={photo}
           initiallyValid={true}
           onInputChange={inputChangeHandler}

@@ -9,10 +9,10 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {ContactListItem} from '..';
 import {fetchContacts} from '../../../store/contactsSlice';
-import {DefaultText, ErrorOverlay} from '../../ui';
 import {Colors} from '../../../constants';
+import {DefaultText, ErrorOverlay} from '../../ui';
+import {ContactListItem} from '..';
 import styles from './ContactList.styles';
 
 const loadContacts = async (dispatch, setIsLoading, setError) => {
@@ -49,6 +49,10 @@ export const sortByName = (a, b) => {
   return 0;
 };
 
+const sortContacts = contacts => {
+  return [...contacts].sort(sortByName);
+};
+
 const renderListItem = (navigation, itemData) => {
   const {firstName, lastName, age, photo} = itemData.item;
 
@@ -77,7 +81,8 @@ const EmptyMessage = ({dispatch, isLoading, setIsLoading, setError}) => (
         refreshing={isLoading}
         onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       />
-    }>
+    }
+  >
     <DefaultText style={styles.emptyMessage}>No contacts</DefaultText>
   </ScrollView>
 );
@@ -118,9 +123,11 @@ const ContactList = () => {
     );
   }
 
+  const sortedContacts = sortContacts(contacts);
+
   return (
     <FlatList
-      data={[...contacts].sort(sortByName)}
+      data={sortedContacts}
       renderItem={itemData => renderListItem(navigation, itemData)}
       onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       refreshing={isLoading}
