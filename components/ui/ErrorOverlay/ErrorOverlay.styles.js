@@ -1,8 +1,20 @@
+// @flow
+
 import {StyleSheet} from 'react-native';
+import type {
+  ViewStyleProp,
+  TextStyleProp,
+} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 import {Colors} from '../../../constants';
 
-const styles = StyleSheet.create({
+type Styles = {
+  container: ViewStyleProp,
+  heading: TextStyleProp,
+  button: ViewStyleProp,
+};
+
+const styles: Styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 36,

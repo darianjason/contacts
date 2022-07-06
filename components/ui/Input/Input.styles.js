@@ -1,8 +1,23 @@
+// @flow
+
 import {StyleSheet} from 'react-native';
+import type {
+  ViewStyleProp,
+  TextStyleProp,
+} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 import {Colors} from '../../../constants';
 
-const styles = StyleSheet.create({
+type Styles = {
+  container: ViewStyleProp,
+  label: TextStyleProp,
+  input: TextStyleProp,
+  invalidLabel: TextStyleProp,
+  invalidInput: ViewStyleProp,
+  errorText: TextStyleProp,
+};
+
+const styles: Styles = StyleSheet.create({
   container: {
     marginBottom: 16,
     justifyContent: 'center',
