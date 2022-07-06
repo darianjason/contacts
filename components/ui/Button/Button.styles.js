@@ -1,6 +1,15 @@
-import {StyleSheet} from 'react-native';
+// @flow
 
-const styles = StyleSheet.create({
+import {StyleSheet} from 'react-native';
+import type {ViewStyleProp} from 'react-native/Libraries/StyleSheet/StyleSheet';
+
+type Styles = {
+  button: ViewStyleProp,
+  hasText: ViewStyleProp,
+  pressed: ViewStyleProp,
+};
+
+const styles: Styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',

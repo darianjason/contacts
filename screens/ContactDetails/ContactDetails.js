@@ -1,10 +1,29 @@
-import React, {useLayoutEffect} from 'react';
+// @flow
+
+import * as React from 'react';
+import {useLayoutEffect} from 'react';
 import {ScrollView, View, Dimensions} from 'react-native';
 
 import {DefaultText, Button, ProfilePicture} from '../../components/ui';
 import styles from './ContactDetails.styles';
 
-const setNavOptions = (navigation, id, fullName) => {
+type NavigationParams = {
+  id: string,
+};
+
+type Navigation = {
+  navigate: (routeName: string, params: NavigationParams) => void,
+  setOptions: ({
+    headerTitle: string,
+    headerRight: () => React.Node,
+  }) => void,
+};
+
+const setNavOptions = (
+  navigation: Navigation,
+  id: string,
+  fullName: string,
+): void => {
   navigation.setOptions({
     headerTitle: fullName,
     headerRight: () => (
@@ -16,7 +35,24 @@ const setNavOptions = (navigation, id, fullName) => {
   });
 };
 
-const ContactDetails = ({navigation, route}) => {
+type Contact = {
+  id: string,
+  photo: string,
+  firstName: string,
+  lastName: string,
+  age: number,
+};
+
+type NavigationProps = {
+  navigation: Navigation,
+  route: {
+    params: {
+      contact: Contact,
+    },
+  },
+};
+
+const ContactDetails = ({navigation, route}: NavigationProps): React.Node => {
   const {contact} = route.params;
 
   const {id, photo, firstName, lastName, age} = contact;

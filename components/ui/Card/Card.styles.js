@@ -1,6 +1,13 @@
-import {StyleSheet} from 'react-native';
+// @flow
 
-const styles = StyleSheet.create({
+import {StyleSheet} from 'react-native';
+import type {ViewStyleProp} from 'react-native/Libraries/StyleSheet/StyleSheet';
+
+type Styles = {
+  card: ViewStyleProp,
+};
+
+const styles: Styles = StyleSheet.create({
   card: {
     borderRadius: 8,
     overflow: 'hidden',

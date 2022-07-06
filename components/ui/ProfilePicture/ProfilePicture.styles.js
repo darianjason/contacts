@@ -1,8 +1,20 @@
+// @flow
+
 import {StyleSheet} from 'react-native';
+import type {
+  ViewStyleProp,
+  TextStyleProp,
+} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 import {Colors} from '../../../constants';
 
-const styles = StyleSheet.create({
+type Styles = {
+  container: ViewStyleProp,
+  image: ViewStyleProp,
+  initials: TextStyleProp,
+};
+
+const styles: Styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',

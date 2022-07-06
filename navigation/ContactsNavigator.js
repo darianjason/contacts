@@ -1,13 +1,40 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
+import type {
+  ViewStyleProp,
+  TextStyleProp,
+} from 'react-native/Libraries/StyleSheet/StyleSheet';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Colors} from '../constants';
 import {ContactDetails, Contacts, ManageContact} from '../screens';
 
-const Stack = createNativeStackNavigator();
+type StackParamList = {
+  Contacts: null,
+  ManageContact: ?{id: string},
+  ContactDetails: {
+    contact: {
+      id: string,
+      photo: string,
+      firstName: string,
+      lastName: string,
+      age: number,
+    },
+  },
+};
 
-const defaultHeaderOptions = {
+const Stack = createNativeStackNavigator<StackParamList>();
+
+type Styles = {
+  headerStyle: ViewStyleProp,
+  headerTitleStyle: TextStyleProp,
+  headerBackTitleStyle: TextStyleProp,
+  headerTintColor: string,
+};
+
+const defaultHeaderOptions: Styles = {
   headerStyle: {
     backgroundColor: Colors.primary,
   },
@@ -23,7 +50,7 @@ const defaultHeaderOptions = {
   headerTintColor: Colors.accent,
 };
 
-const ContactsNavigator = () => (
+const ContactsNavigator = (): React.Node => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={defaultHeaderOptions}>
       <Stack.Screen name="Contacts" component={Contacts} />

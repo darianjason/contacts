@@ -1,9 +1,21 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import {Image, View, Dimensions} from 'react-native';
+import type {ColorValue} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 import {Colors} from '../../../constants';
 import {DefaultText} from '../../ui';
 import styles from './ProfilePicture.styles';
+
+type Props = {
+  photo: string,
+  firstName: string,
+  lastName: string,
+  pictureSize: number,
+  initialsSize: number,
+  backgroundColor: ColorValue,
+};
 
 const ProfilePicture = ({
   photo,
@@ -12,21 +24,21 @@ const ProfilePicture = ({
   pictureSize,
   initialsSize,
   backgroundColor,
-}) => {
+}: Props): React.Node => {
   if (!photo) {
     photo = 'N/A';
   }
 
   return (
     <View
-      style={{
-        ...styles.container,
-        width: pictureSize ? pictureSize : Dimensions.get('window').height / 12,
-        height: pictureSize
-          ? pictureSize
-          : Dimensions.get('window').height / 12,
-        backgroundColor: backgroundColor ? backgroundColor : Colors.accent,
-      }}
+      style={[
+        styles.container,
+        {
+          width: pictureSize ?? Dimensions.get('window').height / 12,
+          height: pictureSize ?? Dimensions.get('window').height / 12,
+          backgroundColor: backgroundColor ?? Colors.accent,
+        },
+      ]}
     >
       {photo !== 'N/A' ? (
         <Image
@@ -36,10 +48,12 @@ const ProfilePicture = ({
         />
       ) : (
         <DefaultText
-          style={{
-            ...styles.initials,
-            fontSize: initialsSize ? initialsSize : 16,
-          }}
+          style={[
+            styles.initials,
+            {
+              fontSize: initialsSize ?? 16,
+            },
+          ]}
           numberOfLines={1}
         >
           {firstName[0]}

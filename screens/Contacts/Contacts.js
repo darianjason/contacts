@@ -1,11 +1,19 @@
-import React, {useLayoutEffect} from 'react';
+// @flow
+
+import * as React from 'react';
+import {useLayoutEffect} from 'react';
 import {View} from 'react-native';
 
 import {ContactList} from '../../components/Contacts';
 import {Button} from '../../components/ui';
 import styles from './Contacts.styles';
 
-const setNavOptions = navigation => {
+type Navigation = {
+  navigate: (routeName: string) => void,
+  setOptions: ({headerRight: () => React.Node}) => void,
+};
+
+const setNavOptions = (navigation: Navigation): void => {
   navigation.setOptions({
     headerRight: () => (
       <Button
@@ -16,7 +24,11 @@ const setNavOptions = navigation => {
   });
 };
 
-const Contacts = ({navigation}) => {
+type NavigationProps = {
+  navigation: Navigation,
+};
+
+const Contacts = ({navigation}: NavigationProps): React.Node => {
   useLayoutEffect(() => {
     setNavOptions(navigation);
   }, [navigation]);
