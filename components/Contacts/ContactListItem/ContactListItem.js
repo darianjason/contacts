@@ -1,18 +1,42 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import {View, Pressable} from 'react-native';
 
 import {Card, DefaultText, ProfilePicture} from '../../ui';
 import styles from './ContactListItem.styles';
 
-const NameContainer = ({firstName, lastName}) => (
+type NameContainerProps = {
+  firstName: string,
+  lastName: string,
+};
+
+const NameContainer = ({
+  firstName,
+  lastName,
+}: NameContainerProps): React.Node => (
   <View style={styles.nameContainer}>
-    <DefaultText style={styles.name}>
+    <DefaultText>
       {firstName} {lastName}
     </DefaultText>
   </View>
 );
 
-const ContactListItem = ({firstName, lastName, age, photo, onSelect}) => (
+type ContactListItemProps = {
+  firstName: string,
+  lastName: string,
+  age: number,
+  photo: string,
+  onSelect: () => void,
+};
+
+const ContactListItem = ({
+  firstName,
+  lastName,
+  age,
+  photo,
+  onSelect,
+}: ContactListItemProps): React.Node => (
   <Pressable
     onPress={onSelect}
     style={({pressed}) => pressed && styles.pressed}

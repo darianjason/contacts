@@ -1,4 +1,7 @@
-import React, {useState, useEffect} from 'react';
+// @flow
+
+import * as React from 'react';
+import {useState, useEffect} from 'react';
 import {
   FlatList,
   View,
@@ -6,6 +9,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
+import type {RenderItemProps} from 'react-native/Libraries/Lists/VirtualizedList';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -15,7 +19,13 @@ import {DefaultText, ErrorOverlay} from '../../ui';
 import {ContactListItem} from '..';
 import styles from './ContactList.styles';
 
-const loadContacts = async (dispatch, setIsLoading, setError) => {
+type Dispatch = (action: () => void) => void;
+
+const loadContacts = async (
+  dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void,
+  setIsLoading: (isLoading: boolean) => void,
+  setError: (error: string) => void,
+): Promise<void> => {
   setIsLoading(true);
   try {
     await dispatch(fetchContacts());
@@ -25,18 +35,47 @@ const loadContacts = async (dispatch, setIsLoading, setError) => {
   setIsLoading(false);
 };
 
-const errorHandler = (dispatch, setIsLoading, setError) => {
+const loadContactsListener = (
+  dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void,
+  setIsLoading: (isLoading: boolean) => void,
+  setError: (error: string) => void,
+): void => {
+  loadContacts(dispatch, setIsLoading, setError);
+};
+
+const errorHandler = (
+  dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void,
+  setIsLoading: (isLoading: boolean) => void,
+  setError: (error: string | null) => void,
+): void => {
   setError(null);
   loadContacts(dispatch, setIsLoading, setError);
 };
 
-const selectHandler = (navigation, contact) => {
+type Contact = {
+  id: string,
+  photo: string,
+  firstName: string,
+  lastName: string,
+  age: number,
+};
+
+type Navigation = {
+  navigate: (
+    routeName: string,
+    params: {
+      contact: Contact,
+    },
+  ) => void,
+};
+
+const selectHandler = (navigation: Navigation, contact: Contact): void => {
   navigation.navigate('ContactDetails', {contact});
 };
 
-export const sortByName = (a, b) => {
-  const nameA = a.firstName.toUpperCase() + a.lastName.toUpperCase();
-  const nameB = b.firstName.toUpperCase() + b.lastName.toUpperCase();
+export const sortByName = (a: Contact, b: Contact): number => {
+  const nameA: string = a.firstName.toUpperCase() + a.lastName.toUpperCase();
+  const nameB: string = b.firstName.toUpperCase() + b.lastName.toUpperCase();
 
   if (nameA < nameB) {
     return -1;
@@ -49,11 +88,14 @@ export const sortByName = (a, b) => {
   return 0;
 };
 
-const sortContacts = contacts => {
+const sortContacts = (contacts: Array<Contact>): Array<Contact> => {
   return [...contacts].sort(sortByName);
 };
 
-const renderListItem = (navigation, itemData) => {
+const renderListItem = (
+  navigation: Navigation,
+  itemData: RenderItemProps<Contact>,
+): React.Node => {
   const {firstName, lastName, age, photo} = itemData.item;
 
   return (
@@ -67,13 +109,25 @@ const renderListItem = (navigation, itemData) => {
   );
 };
 
-const LoadingIndicator = () => (
+const LoadingIndicator = (): React.Node => (
   <View style={styles.altContainer}>
     <ActivityIndicator size="large" color={Colors.primary} />
   </View>
 );
 
-const EmptyMessage = ({dispatch, isLoading, setIsLoading, setError}) => (
+type EmptyMessageProps = {
+  dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void,
+  isLoading: boolean,
+  setIsLoading: (isLoading: boolean) => void,
+  setError: (error: string | null) => void,
+};
+
+const EmptyMessage = ({
+  dispatch,
+  isLoading,
+  setIsLoading,
+  setError,
+}: EmptyMessageProps): React.Node => (
   <ScrollView
     contentContainerStyle={styles.altContainer}
     refreshControl={
@@ -87,10 +141,13 @@ const EmptyMessage = ({dispatch, isLoading, setIsLoading, setError}) => (
   </ScrollView>
 );
 
-const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.contacts);
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+const ContactList = (): React.Node => {
+  const contacts: Array<Contact> = useSelector(
+    state => state.contacts.contacts,
+  );
+  const dispatch: ((dispatch: Dispatch) => Promise<void>) => void =
+    useDispatch();
+  const navigation: Navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -123,13 +180,13 @@ const ContactList = () => {
     );
   }
 
-  const sortedContacts = sortContacts(contacts);
+  const sortedContacts: Array<Contact> = sortContacts(contacts);
 
   return (
     <FlatList
       data={sortedContacts}
       renderItem={itemData => renderListItem(navigation, itemData)}
-      onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
+      onRefresh={() => loadContactsListener(dispatch, setIsLoading, setError)}
       refreshing={isLoading}
       contentContainerStyle={styles.listContainer}
     />

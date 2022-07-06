@@ -1,13 +1,39 @@
-import React, {useCallback} from 'react';
+// @flow
+
+import * as React from 'react';
+import {useCallback} from 'react';
 import {View, Pressable, Dimensions} from 'react-native';
 
-import {Colors} from '../../../constants';
+import {Colors, INPUT_UPDATE} from '../../../constants';
 import {Input, ProfilePicture} from '../../ui';
 import styles from './ContactForm.styles';
 
-const INPUT_UPDATE = 'INPUT_UPDATE';
+type State = {
+  +type: string,
+  +input: string,
+  +value: string,
+  +isValid: boolean,
+  +errorText: string,
+};
 
-const ContactForm = ({formState, dispatchFormState, isEditing}) => {
+type Props = {
+  formState: {
+    inputValues: {
+      firstName: string,
+      lastName: string,
+      age: number,
+      photo: String,
+    },
+  },
+  dispatchFormState: (state: State) => void,
+  isEditing: boolean,
+};
+
+const ContactForm = ({
+  formState,
+  dispatchFormState,
+  isEditing,
+}: Props): React.Node => {
   const {inputValues} = formState;
   const {firstName, lastName, age, photo} = inputValues;
 
