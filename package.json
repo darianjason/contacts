@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "flow": "flow"
   },
   "dependencies": {
     "@react-navigation/native": "^6.0.10",
@@ -23,13 +24,16 @@
     "react-redux": "^7.2.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-flow": "^7.17.12",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@testing-library/jest-native": "^4.0.4",
     "@testing-library/react-native": "^9.1.0",
     "babel-jest": "^28.0.0",
     "eslint": "^7.32.0",
+    "flow-bin": "^0.179.0",
     "jest": "^28.0.0",
     "metro-react-native-babel-preset": "^0.67.0",
     "react-test-renderer": "17.0.2"
