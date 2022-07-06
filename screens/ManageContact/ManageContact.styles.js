@@ -1,8 +1,17 @@
+// @flow
+
 import {StyleSheet} from 'react-native';
+import type {ViewStyleProp} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 import {Colors} from '../../constants';
 
-const styles = StyleSheet.create({
+type Styles = {
+  screen: ViewStyleProp,
+  cancelButton: ViewStyleProp,
+  disabled: ViewStyleProp,
+};
+
+const styles: Styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 36,

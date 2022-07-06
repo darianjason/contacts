@@ -1,4 +1,7 @@
-import React, {useReducer, useState, useLayoutEffect} from 'react';
+// @flow
+
+import * as React from 'react';
+import {useReducer, useState, useLayoutEffect} from 'react';
 import {ScrollView, ActivityIndicator, Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -13,7 +16,37 @@ import {
 import {Colors, INPUT_UPDATE} from '../../constants';
 import styles from './ManageContact.styles';
 
-const formReducer = (state, action) => {
+type State = {
+  +formIsValid: boolean,
+  +inputValues: {
+    +firstName: string,
+    +lastName: string,
+    +age: string,
+    +photo: string,
+  },
+  +inputValidities: {
+    +firstName: boolean,
+    +lastName: boolean,
+    +age: boolean,
+    +photo: boolean,
+  },
+  +inputErrors: {
+    +firstName: string,
+    +lastName: string,
+    +age: string,
+    +photo: string,
+  },
+};
+
+type InputUpdateAction = {
+  type: 'INPUT_UPDATE',
+  input: string,
+  value: string,
+  isValid: boolean,
+  errorText: string,
+};
+
+const formReducer = (state: State, action: InputUpdateAction): State => {
   if (action.type === INPUT_UPDATE) {
     const values = {
       ...state.inputValues,
@@ -46,11 +79,53 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const cancelHandler = navigation => {
+type Contact = {
+  id?: string,
+  firstName: string,
+  lastName: string,
+  age: number | string,
+  photo: string,
+};
+
+type NavigationParams = {
+  contact: Contact,
+};
+
+type Route = {
+  name: string,
+  params?: NavigationParams,
+};
+
+type Navigation = {
+  navigate: (routeName: string, params: NavigationParams) => void,
+  goBack: () => void,
+  setOptions: ({
+    title: string,
+    headerLeft: () => React.Node,
+    headerRight: () => React.Node,
+  }) => void,
+  reset: ({index: number, routes: Array<Route>}) => void,
+};
+
+const cancelHandler = (navigation: Navigation): void => {
   navigation.goBack();
 };
 
-export const saveHandler = async saveParams => {
+type Dispatch = (action: () => void) => void;
+
+type SaveParams = {
+  isEditing: boolean,
+  navigation: Navigation,
+  formState: State,
+  id?: string,
+  dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void,
+  setIsSaving: (isSaving: boolean) => void,
+  setError: (error: string) => void,
+};
+
+export const saveHandler = async (
+  saveParams: SaveParams,
+): Promise<Contact | string | typeof undefined> => {
   const {
     isEditing,
     navigation,
@@ -59,11 +134,11 @@ export const saveHandler = async saveParams => {
     dispatch,
     setIsSaving,
     setError,
-  } = saveParams;
+  }: SaveParams = saveParams;
   const {inputValues, formIsValid} = formState;
   const {firstName, lastName, age, photo} = inputValues;
 
-  const contact = {
+  const contact: Contact = {
     firstName: firstName,
     lastName: lastName,
     age: +age,
@@ -85,15 +160,17 @@ export const saveHandler = async saveParams => {
         routes: [{name: 'Contacts'}],
       });
     } else {
-      await dispatch(editContact(id, contact));
-      contact.id = id;
-      navigation.reset({
-        index: 1,
-        routes: [
-          {name: 'Contacts'},
-          {name: 'ContactDetails', params: {contact}},
-        ],
-      });
+      if (id) {
+        await dispatch(editContact(id, contact));
+        contact.id = id;
+        navigation.reset({
+          index: 1,
+          routes: [
+            {name: 'Contacts'},
+            {name: 'ContactDetails', params: {contact}},
+          ],
+        });
+      }
     }
 
     return contact;
@@ -104,13 +181,32 @@ export const saveHandler = async saveParams => {
   }
 };
 
-export const deleteHandler = async deleteParams => {
+type SelectedContact = {
+  id: string,
+  firstName: string,
+  lastName: string,
+  age: number,
+  photo: string,
+};
+
+type DeleteParams = {
+  dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void,
+  selectedContact: SelectedContact,
+  navigation: Navigation,
+  setIsDeleting: (isDeleting: boolean) => void,
+  setError: (error: string) => void,
+};
+
+export const deleteHandler = async (
+  deleteParams: DeleteParams,
+): Promise<string> => {
   const {dispatch, selectedContact, navigation, setIsDeleting, setError} =
     deleteParams;
   const {id} = selectedContact;
 
   setIsDeleting(true);
 
+  // if (id !== undefined) {
   try {
     await dispatch(removeContact(id));
     navigation.reset({
@@ -124,9 +220,10 @@ export const deleteHandler = async deleteParams => {
     setIsDeleting(false);
     return error.message;
   }
+  // }
 };
 
-const confirmDelete = deleteParams => {
+const confirmDelete = (deleteParams: DeleteParams): void => {
   const {selectedContact} = deleteParams;
   const {firstName, lastName} = selectedContact;
 
@@ -144,7 +241,12 @@ const confirmDelete = deleteParams => {
   );
 };
 
-const setNavOptions = navParams => {
+type NavParams = {
+  ...SaveParams,
+  isSaving: boolean,
+};
+
+const setNavOptions = (navParams: NavParams): void => {
   const {
     navigation,
     isEditing,
@@ -155,7 +257,7 @@ const setNavOptions = navParams => {
     setIsSaving,
     setError,
   } = navParams;
-  const saveParams = {
+  const saveParams: SaveParams = {
     isEditing,
     navigation,
     formState,
@@ -191,11 +293,19 @@ const setNavOptions = navParams => {
   });
 };
 
-const errorHandler = setError => {
+const errorHandler = (setError: (?string) => void) => {
   setError(null);
 };
 
-const ManageContact = ({route}) => {
+type NavigationProps = {
+  route: {
+    params: {
+      id?: string,
+    },
+  },
+};
+
+const ManageContact = ({route}: NavigationProps): React.Node => {
   const id = route.params?.id;
   const isEditing = !!id;
 
@@ -203,21 +313,25 @@ const ManageContact = ({route}) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState();
 
-  const placeholderContact = {
+  const placeholderContact: SelectedContact = {
     id: '',
     firstName: '',
     lastName: '',
-    age: '',
+    age: 1,
     photo: '',
   };
 
-  const contacts = useSelector(state => state.contacts.contacts);
-  const selectedContact = isDeleting
+  const contacts: Array<Contact> = useSelector(
+    state => state.contacts.contacts,
+  );
+
+  const selectedContact: any = isDeleting
     ? placeholderContact
     : contacts.find(contact => contact.id === id);
 
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const dispatch: (action: (dispatch: Dispatch) => Promise<void>) => void =
+    useDispatch();
+  const navigation: Navigation = useNavigation();
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -264,7 +378,7 @@ const ManageContact = ({route}) => {
     setError,
   ]);
 
-  const deleteParams = {
+  const deleteParams: DeleteParams = {
     dispatch,
     selectedContact,
     navigation,
