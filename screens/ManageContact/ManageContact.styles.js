@@ -5,18 +5,14 @@ import {Colors} from '../../constants';
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    alignItems: 'center',
     padding: 36,
+    backgroundColor: Colors.accent,
   },
-  name: {
-    fontFamily: 'Manrope-Bold',
-    fontSize: 24,
-    marginTop: 16,
-    alignSelf: 'center',
-    color: Colors.primary,
+  cancelButton: {
+    marginRight: 36,
   },
-  infoContainer: {
-    marginTop: 16,
+  disabled: {
+    opacity: 0.5,
   },
 });
 

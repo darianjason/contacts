@@ -1,27 +1,40 @@
+import React, {useState, useEffect} from 'react';
+import {
+  FlatList,
+  View,
+  ScrollView,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import React, {useState, useCallback, useEffect} from 'react';
-import {FlatList, View, ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {ContactListItem} from '..';
 import {fetchContacts} from '../../../store/contactsSlice';
-import {DefaultText} from '../../ui';
 import {Colors} from '../../../constants';
+import {DefaultText, ErrorOverlay} from '../../ui';
+import {ContactListItem} from '..';
 import styles from './ContactList.styles';
 
-const loadContactsHandler = async dispatch => {
+const loadContacts = async (dispatch, setIsLoading, setError) => {
+  setIsLoading(true);
   try {
     await dispatch(fetchContacts());
   } catch (error) {
-    console.error(error);
+    setError(error.message);
   }
+  setIsLoading(false);
 };
 
-const selectHandler = (navigation, id) => {
-  navigation.navigate('ContactDetails', {id});
+const errorHandler = (dispatch, setIsLoading, setError) => {
+  setError(null);
+  loadContacts(dispatch, setIsLoading, setError);
 };
 
-const sortByName = (a, b) => {
+const selectHandler = (navigation, contact) => {
+  navigation.navigate('ContactDetails', {contact});
+};
+
+export const sortByName = (a, b) => {
   const nameA = a.firstName.toUpperCase() + a.lastName.toUpperCase();
   const nameB = b.firstName.toUpperCase() + b.lastName.toUpperCase();
 
@@ -36,8 +49,12 @@ const sortByName = (a, b) => {
   return 0;
 };
 
+const sortContacts = contacts => {
+  return [...contacts].sort(sortByName);
+};
+
 const renderListItem = (navigation, itemData) => {
-  const {id, firstName, lastName, age, photo} = itemData.item;
+  const {firstName, lastName, age, photo} = itemData.item;
 
   return (
     <ContactListItem
@@ -45,7 +62,7 @@ const renderListItem = (navigation, itemData) => {
       lastName={lastName}
       age={age}
       photo={photo}
-      onSelect={() => selectHandler(navigation, id)}
+      onSelect={() => selectHandler(navigation, itemData.item)}
     />
   );
 };
@@ -56,10 +73,18 @@ const LoadingIndicator = () => (
   </View>
 );
 
-const EmptyMessage = () => (
-  <View style={styles.altContainer}>
-    <DefaultText style={styles.emptyMessage}>No contacts.</DefaultText>
-  </View>
+const EmptyMessage = ({dispatch, isLoading, setIsLoading, setError}) => (
+  <ScrollView
+    contentContainerStyle={styles.altContainer}
+    refreshControl={
+      <RefreshControl
+        refreshing={isLoading}
+        onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
+      />
+    }
+  >
+    <DefaultText style={styles.emptyMessage}>No contacts</DefaultText>
+  </ScrollView>
 );
 
 const ContactList = () => {
@@ -68,29 +93,43 @@ const ContactList = () => {
   const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const loadContacts = useCallback(async () => {
-    await loadContactsHandler(dispatch);
-  }, [dispatch]);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    setIsLoading(true);
-    loadContacts().then(() => setIsLoading(false));
-  }, [dispatch, loadContacts]);
+    loadContacts(dispatch, setIsLoading, setError);
+  }, [dispatch, setIsLoading, setError]);
+
+  if (error && !isLoading) {
+    return (
+      <ErrorOverlay
+        message={error}
+        onConfirm={() => errorHandler(dispatch, setIsLoading, setError)}
+      />
+    );
+  }
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
   if (contacts.length === 0) {
-    return <EmptyMessage />;
+    return (
+      <EmptyMessage
+        dispatch={dispatch}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        setError={setError}
+      />
+    );
   }
+
+  const sortedContacts = sortContacts(contacts);
 
   return (
     <FlatList
-      data={[...contacts].sort(sortByName)}
+      data={sortedContacts}
       renderItem={itemData => renderListItem(navigation, itemData)}
-      onRefresh={loadContacts}
+      onRefresh={() => loadContacts(dispatch, setIsLoading, setError)}
       refreshing={isLoading}
       contentContainerStyle={styles.listContainer}
     />

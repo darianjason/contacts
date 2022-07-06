@@ -1,29 +1,25 @@
 import React, {useLayoutEffect} from 'react';
 import {ScrollView, View, Dimensions} from 'react-native';
-import {useSelector} from 'react-redux';
 
-import {DefaultText, IconButton, ProfilePicture} from '../../components/ui';
+import {DefaultText, Button, ProfilePicture} from '../../components/ui';
 import styles from './ContactDetails.styles';
 
 const setNavOptions = (navigation, id, fullName) => {
   navigation.setOptions({
     headerTitle: fullName,
     headerRight: () => (
-      <IconButton
-        name="pencil"
-        onPress={() => navigation.navigate('EditContact', {id})}
+      <Button
+        icon="edit"
+        onPress={() => navigation.navigate('ManageContact', {id})}
       />
     ),
   });
 };
 
 const ContactDetails = ({navigation, route}) => {
-  const {id} = route.params;
+  const {contact} = route.params;
 
-  const contacts = useSelector(state => state.contacts.contacts);
-  const selectedContact = contacts.find(contact => contact.id === id);
-
-  const {photo, firstName, lastName, age} = selectedContact;
+  const {id, photo, firstName, lastName, age} = contact;
   const fullName = `${firstName} ${lastName}`;
 
   useLayoutEffect(() => {

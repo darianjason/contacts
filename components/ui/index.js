@@ -1,4 +1,6 @@
 export {default as Card} from './Card/Card';
 export {default as DefaultText} from './DefaultText/DefaultText';
-export {default as IconButton} from './IconButton/IconButton';
+export {default as Button} from './Button/Button';
 export {default as ProfilePicture} from './ProfilePicture/ProfilePicture';
+export {default as Input} from './Input/Input';
+export {default as ErrorOverlay} from './ErrorOverlay/ErrorOverlay';

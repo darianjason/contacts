@@ -4,21 +4,20 @@ import {Colors} from '../../../constants';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    padding: 36,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: Colors.accent,
-    borderRadius: 8,
-    overflow: 'hidden',
   },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  initials: {
+  heading: {
     fontFamily: 'Manrope-Bold',
-    letterSpacing: 2,
+    fontSize: 18,
+    marginBottom: 8,
     color: Colors.primary,
+  },
+  button: {
+    marginTop: 24,
+    alignSelf: 'center',
   },
 });
 

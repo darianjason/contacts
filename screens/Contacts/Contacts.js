@@ -2,15 +2,15 @@ import React, {useLayoutEffect} from 'react';
 import {View} from 'react-native';
 
 import {ContactList} from '../../components/Contacts';
-import {IconButton} from '../../components/ui';
+import {Button} from '../../components/ui';
 import styles from './Contacts.styles';
 
 const setNavOptions = navigation => {
   navigation.setOptions({
     headerRight: () => (
-      <IconButton
-        name="add"
-        onPress={() => navigation.navigate('EditContact')}
+      <Button
+        icon="plus-circle"
+        onPress={() => navigation.navigate('ManageContact')}
       />
     ),
   });
